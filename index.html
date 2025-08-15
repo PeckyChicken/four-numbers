@@ -2,13 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Four Numbers</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PyScript Test</title>
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
-<body py-init="_on_page_load()">
-    <h1>Four Numbers</h1>
-    <h2 id="puzzle_id">Puzzle</h2>
-    <py-script src="main.py"></py-script>
+<body>
+    <h1 id="title">Original Text</h1>
+    <div id="output">PyScript Output Will Appear Here:</div>
+
+    <py-script>
+from js import document, console, window
+
+# Function to run when page loads
+def on_load(event=None):
+    # Change an element by ID
+    document.getElementById("title").innerHTML = "Page Loaded!"
+    document.getElementById("output").innerHTML = "PyScript is working!"
+
+    # Print to the page (below this py-script)
+    print("This appears in the PyScript output area")
+
+    # Print to the browser console
+    console.log("This appears in the console")
+
+# Bind to window.onload
+window.onload = on_load
+    </py-script>
 </body>
 </html>
