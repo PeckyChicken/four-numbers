@@ -1,15 +1,13 @@
-from tracemalloc import start
 from functions import *
 from py_expression_eval import Parser
-from datetime import date, datetime
+from datetime import date
 
 testing = False
 try:
     #This is a special import for PyScript to access the DOM
-    from js import document, window # type: ignore
+    from js import document, console # type: ignore
 except ImportError:
     document = None
-    window = None
     testing = True
 
 min_range = 2
@@ -55,12 +53,14 @@ def setup_puzzle(puzzle_id: int) -> tuple[int, list[int], str]:
     return target, allowed_nums, solution
 
 def _on_page_load():
+    print("Page loaded, setting up puzzle...")
+    if not testing:
+        console.log("Page loaded, setting up puzzle...") #type: ignore
     if document is not None:
         document.getElementById("puzzle_id").innerText = f"Puzzle #{puzzle_id}"
     else:
         print(f"Puzzle #{puzzle_id}")
 
-document.addEventListener("DOMContentLoaded", _on_page_load) #type: ignore
 
 #while True:
 #    seeded = puzzle_id
