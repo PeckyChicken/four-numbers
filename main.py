@@ -71,26 +71,26 @@ while True:
     while target not in allowed_nums: #Keep going until either player wins or gives up.
         expressions = input("> ").strip().lower()
         if len(expressions) == 0:
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             continue
 
         if expressions in ("n","nums","numbers","num","number"):
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             display_nums(allowed_nums,target)
             continue
 
         if expressions in ("g","goal","target"):
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             print(f"Your target is {target}.")
             continue
 
         if expressions in ("skip","pass","stop","new","newgame","new game","next") and mode == "random":
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             print(f"The solution was {solution}. Starting a new game...")
             break
 
         if expressions in ("h","help"):
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             print(help_text)
             continue
 
@@ -104,7 +104,7 @@ while True:
             allowed_nums.sort()
             history.clear()
             display_nums(allowed_nums,target)
-            winsound.PlaySound("restart.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/restart.wav",winsound.SND_ASYNC)
             continue
         
         if expressions.split()[0] in ("factors","f","factorise","factorize"):
@@ -112,20 +112,20 @@ while True:
                 if expressions.split()[1].replace("-","").isnumeric():
                     num = int(expressions.split()[1])
                 elif expressions.split()[1].replace("-","").replace(".","").isnumeric() and "." in expressions.split()[1]:
-                    winsound.PlaySound("error.wav",winsound.SND_ASYNC)
+                    winsound.PlaySound("Sounds/error.wav",winsound.SND_ASYNC)
                     print(f"Error, {expressions.split()[1]} is not an integer.")
                     continue
                 else:
                     num = target
             else:
                 num = target
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             num_factors = sorted(list(factors(num)))
             print(f"The factors of {num} are {", ".join(str_list(num_factors[:-1]))} and {num_factors[-1]}. ")
             continue
         
         if expressions.startswith("test "):
-            winsound.PlaySound("success.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/success.wav",winsound.SND_ASYNC)
             expression = expressions[5:]
             try:
                 result = test_parser.parse(expression).evaluate({})
@@ -135,7 +135,7 @@ while True:
             continue
 
         if expressions in ("c","cls","clear","clearscreen","clear screen"):
-            winsound.PlaySound("enter.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/enter.wav",winsound.SND_ASYNC)
             print("Clearing screen...")
             os.system("cls")
             display_nums(allowed_nums,target)
@@ -144,10 +144,10 @@ while True:
         if expressions in ("u","undo","back"):
             if len(history) < 1:
                 print("Nothing to undo.")
-                winsound.PlaySound("error.wav",winsound.SND_ASYNC)
+                winsound.PlaySound("Sounds/error.wav",winsound.SND_ASYNC)
 
                 continue
-            winsound.PlaySound("undo.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/undo.wav",winsound.SND_ASYNC)
             lastmove = history[-1]
             allowed_nums.remove(lastmove[1])
             allowed_nums.extend(lastmove[0])
@@ -162,15 +162,15 @@ while True:
             if expression.startswith(tuple(ops)):
                 if len(history) == 0:
                     print("Error, dangling operation.")
-                    winsound.PlaySound("error.wav",winsound.SND_ASYNC)
+                    winsound.PlaySound("Sounds/error.wav",winsound.SND_ASYNC)
                     continue
                 expression = f"{history[-1][1]}{" " if expression[1] == " " else ""}" + expression
             evaluation = eval_expression(expression,allowed_nums)
             if type(evaluation) == str: #An error message has been returned
                 print(evaluation)
-                winsound.PlaySound("error.wav",winsound.SND_ASYNC)
+                winsound.PlaySound("Sounds/error.wav",winsound.SND_ASYNC)
                 continue
-            winsound.PlaySound("success.wav",winsound.SND_ASYNC)
+            winsound.PlaySound("Sounds/success.wav",winsound.SND_ASYNC)
             nums, answer = evaluation
             history.append(evaluation)
             print(f"{expression} = {answer}")
