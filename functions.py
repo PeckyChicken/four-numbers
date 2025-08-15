@@ -28,7 +28,7 @@ def factors(n) -> set[int]:
     return set(reduce(list.__add__, 
                       ([i, n//i] for i in range(1, int(n**0.5) + 1) if n % i == 0)))
 
-def create_puzzle(target_min,target_max,nums_min,nums_max,num_nums) -> tuple[int, list]:
+def create_puzzle(target_min,target_max,nums_min,nums_max,num_nums) -> tuple[int, list, str]:
     target = randint(target_min,target_max)
     current_value = target
     nums = []
@@ -56,8 +56,9 @@ def create_puzzle(target_min,target_max,nums_min,nums_max,num_nums) -> tuple[int
         nums_remaining -= 1
     return target, nums, solution
 
-def create_target(nums: list[int],min_range,max_range):
-    target = -1
+def create_target(nums: list[int],min_range,max_range) -> tuple[int, str]:
+    target: int = -1
+    solution: str = "Error"
     counter = 0
     while not min_range < target < max_range or target in nums or check_one_operation(nums,target):
         if counter >= 50:
@@ -66,6 +67,7 @@ def create_target(nums: list[int],min_range,max_range):
         numbers = sample(nums,k=len(nums))
         total_steps = len(nums)-1
         target = numbers[0]
+        subtarget = target
         solution = f"{target}"
         for idx, number in enumerate(numbers[1:total_steps+1]):
             operation = choice(self_ops)
@@ -77,7 +79,8 @@ def create_target(nums: list[int],min_range,max_range):
             while operation == "/" and not (target/number).is_integer():
                 operation = choice(self_ops)
             solution += f" {operation} {number}"
-            target = eval_nums(target,number,operation)
+            subtarget = eval_nums(subtarget,number,operation)
+        target = int(subtarget)
         counter += 1
     return int(target), solution
 
@@ -87,7 +90,7 @@ def str_list(object=[]) -> list[str]:
 def int_list(object=[]) -> list[int]:
     return [int(i) for i in object]
 
-def eval_nums(num1,num2,op):
+def eval_nums(num1,num2,op) -> float|int:
     if op == "+":
         return num1 + num2
     if op == "-":
@@ -98,6 +101,7 @@ def eval_nums(num1,num2,op):
         return num1 / num2
     if op == "%":
         return num1 % num2
+    raise ValueError(f"Unknown operation {op}")
 
 def display_nums(nums,target):
     winsound.PlaySound("load.wav",winsound.SND_ASYNC)
@@ -108,7 +112,7 @@ def display_nums(nums,target):
         print(f"Your numbers are {", ".join(str_list(nums[:-1]))} and {nums[-1]}. ",end="")
     print(f"Your target is {target}.")
 
-def eval_expression(expression:str,allowed_nums:list) -> list[list[int]|int]|str:
+def eval_expression(expression:str,allowed_nums:list) -> tuple[list[int], int|str]:
     for x,item in enumerate(expression,start=1):
         if item in ops:
             continue
@@ -118,7 +122,7 @@ def eval_expression(expression:str,allowed_nums:list) -> list[list[int]|int]|str
             #Just ignore the numbers for now, we're checking them properly later
             continue
         #After checking the allowed characters, anything left will be a disallowed character.
-        return f'Error, disallowed or unrecognised character "{item}" in position {x}.'
+        return [],f'Error, disallowed or unrecognised character "{item}" in position {x}.'
     
 
     nums = int_list(re.findall(r"\d+",expression))
@@ -130,15 +134,15 @@ def eval_expression(expression:str,allowed_nums:list) -> list[list[int]|int]|str
                 error_msg += f"Your numbers are {allowed_nums[0]}. "
             else:
                 error_msg += f"Your numbers are {", ".join(str_list(allowed_nums[:-1]))} and {allowed_nums[-1]}. "
-            return error_msg
+            return [],error_msg
         check_nums.remove(item)
     
     try:
         answer = parser.parse(expression).evaluate({})
     except Exception:
-        return "Error, failed to parse expression."
+        return [],"Error, failed to parse expression."
     if not answer.is_integer():
-        return "Error, answer is not whole."
+        return [],"Error, answer is not whole."
     if answer < 0:
         print("Answer was negative, flipped to be positive")
         answer = abs(answer)

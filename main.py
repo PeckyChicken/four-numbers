@@ -39,6 +39,9 @@ You can always type "help" to get this list up again.
 '''
 
 mini_help_text = f'You can use + - * or / and may use each number at most once. You can separate expressions with ",".\nType {'"new" or "skip" to get a new puzzle, ' if mode == "random" else ""}"help" to learn more, "undo" to undo your last move, "restart" or "r" to restart the puzzle or "nums" to see your current numbers.\nType "factors" to see the factors of the target number, or "test <expression>" to try out some math.'
+
+puzzle_id = 0
+
 if mode == "leveled":
     try:
         with open("puzzle_id.txt","r") as f:
@@ -46,15 +49,18 @@ if mode == "leveled":
     except FileNotFoundError:
         puzzle_id = 0
 while True:
+    seeded = puzzle_id
+
     if mode == "leveled":
-        seed(puzzle_id)
-        seeded = puzzle_id
+        seed(seeded)
         print(f"Puzzle #{puzzle_id}")
         
         max_range = puzzle_id+10
     history = []
     
     target = -1
+    allowed_nums = []
+    solution = ""
 
     while target == -1:
         if mode == "leveled":
@@ -166,12 +172,13 @@ while True:
                     continue
                 expression = f"{history[-1][1]}{" " if expression[1] == " " else ""}" + expression
             evaluation = eval_expression(expression,allowed_nums)
-            if type(evaluation) == str: #An error message has been returned
+            if type(evaluation[1]) == str: #An error message has been returned
                 print(evaluation)
                 winsound.PlaySound("Sounds/error.wav",winsound.SND_ASYNC)
                 continue
             winsound.PlaySound("Sounds/success.wav",winsound.SND_ASYNC)
-            nums, answer = evaluation
+            nums  = evaluation[0]
+            answer = int(evaluation[1])
             history.append(evaluation)
             print(f"{expression} = {answer}")
             for i in nums:
