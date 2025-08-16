@@ -1,0 +1,236 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfxrgpbx000de"]
+
+[ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://da7s8c0h5cosn" path="res://number_tile.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
+[ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://answer.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
+
+[sub_resource type="Theme" id="Theme_ig7tw"]
+background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_ig7tw")
+script = ExtResource("1_h2yge")
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"background"
+color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+metadata/_edit_lock_ = true
+
+[node name="Equation" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Expression" type="PanelContainer" parent="Equation"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+
+[node name="Symbols" type="HBoxContainer" parent="Equation/Expression"]
+modulate = Color(2, 2, 2, 1)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"box"
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("2_7mycd")
+allowed_tiles = Array[int]([0, 1, 2])
+container_type = 2
+
+[node name="equals" parent="Equation" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "="
+type = 3
+
+[node name="Answer" type="PanelContainer" parent="Equation"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+
+[node name="Symbols" type="HBoxContainer" parent="Equation/Answer"]
+modulate = Color(2, 2, 2, 1)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"box"
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("3_1bvp3")
+max_size = 1
+allowed_tiles = Array[int]([2, 0])
+container_type = 3
+
+[node name="Storage" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.1
+offset_left = -55.0
+offset_right = 55.0
+offset_bottom = 110.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+
+[node name="Symbols" type="HBoxContainer" parent="Storage"]
+modulate = Color(2, 2, 2, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"box"
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("4_1bvp3")
+allowed_tiles = Array[int]([2, 0])
+container_type = 1
+
+[node name="Number Tile" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+number = 42
+draggable = true
+
+[node name="Number Tile2" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+number = 20
+draggable = true
+
+[node name="Number Tile3" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+number = 32
+draggable = true
+
+[node name="Number Tile4" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+number = 50
+draggable = true
+
+[node name="Operations" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -55.0
+offset_top = -110.0
+offset_right = 55.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+
+[node name="Symbols" type="HBoxContainer" parent="Operations"]
+modulate = Color(2, 2, 2, 1)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"box"
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("7_272bh")
+allowed_tiles = Array[int]([2, 1])
+
+[node name="Plus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "+"
+draggable = true
+type = 1
+
+[node name="Minus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "-"
+draggable = true
+type = 1
+
+[node name="Multiply" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "×"
+draggable = true
+type = 1
+
+[node name="Divide" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "÷"
+draggable = true
+type = 1
+
+[node name="Open Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "("
+draggable = true
+type = 1
+
+[node name="Close Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = ")"
+draggable = true
+type = 1

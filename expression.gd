@@ -1,6 +1,8 @@
 class_name ExpressionContainer
 extends NumberContainer
 
+var operation_array = ["+","-","×","÷","(",")","*","/"]
+
 var answer: NumberTile
 @onready var number_tile: PackedScene = load("res://number_tile.tscn")
 
@@ -72,14 +74,27 @@ func create_history() -> Array:
 	
 	return history
 
-func check_repeating_numbers(expression) -> bool:
-	var components = expression.split(" ")
+func remove_ops(expression: String) -> String:
+	for op in operation_array:
+		expression = expression.replace(" "+op,"")
+	return expression
+
+func check_repeating_numbers(expression: String) -> bool:
+	var components = expression.replace(" (","").replace(" )","").split(" ")#
+	if len(components) < 2:
+		return true
 	var index = 0
 	for component in components:
 		if component.is_valid_float() and index != 0:
 			if components[index-1].is_valid_float():
 				
 				return true
+		else:
+			if component in operation_array:
+				if index == 0:
+					return true
+				if components[index-1] in operation_array:
+					return true
 		index += 1
 	return false
 
@@ -115,6 +130,7 @@ func _process(_delta: float) -> void:
 	
 	var expression = create_expression()
 	var history = create_history()
+	print(expression)
 	
 	if num_components > 1 and validate_expression(godotify_expression(expression)):
 		var output = calcuate_answer()
