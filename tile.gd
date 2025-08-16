@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 
 func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
-		assert (container.length <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length,container.max_size,str(container.get_children())])
+		assert (container.length() <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length(),container.max_size,str(container.get_children())])
 	var temp_position
 	
 	if temp_position_override:
@@ -50,7 +50,6 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 
 func delete_shadow():
 	if shadow:
-		shadow.get_parent().length -= 1
 		shadow.queue_free()
 		shadow = null
 
@@ -60,7 +59,7 @@ func find_overlap():
 	for other in root.containers:
 		if other == self:
 			continue
-		if other.get_child(0).length >= other.get_child(0).max_size and other.get_child(0).max_size >= 0:
+		if other.get_child(0).length() >= other.get_child(0).max_size and other.get_child(0).max_size >= 0:
 			continue
 		if type not in other.get_child(0).allowed_tiles:
 			continue

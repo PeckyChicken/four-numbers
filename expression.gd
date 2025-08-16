@@ -10,7 +10,6 @@ func _ready() -> void:
 	pass
 
 func delete_previous_answer():
-	$"../../Answer/Symbols".length = 0
 	answer.queue_free()
 	answer = null
 
@@ -31,7 +30,6 @@ func clear():
 	for child in get_children():
 		child.queue_free()
 	get_children().clear()
-	length = 0
 	answer = null
 
 func create_expression() -> String:
@@ -74,6 +72,17 @@ func create_history() -> Array:
 	
 	return history
 
+func check_repeating_numbers(expression) -> bool:
+	var components = expression.split(" ")
+	var index = 0
+	for component in components:
+		if component.is_valid_float() and index != 0:
+			if components[index-1].is_valid_float():
+				
+				return true
+		index += 1
+	return false
+
 func validate_expression(expression) -> bool:
 	var error = parser.parse(expression)
 	if error != OK:
@@ -87,6 +96,9 @@ func validate_expression(expression) -> bool:
 		print("Answer was not whole")
 		return false
 	
+	if check_repeating_numbers(expression):
+		return false
+	
 	return true
 
 func calcuate_answer() -> int:
@@ -95,7 +107,7 @@ func calcuate_answer() -> int:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	super._process(_delta)
-	var num_components = length
+	var num_components = length()
 	for child in get_children():
 		if child.type == Root.Tiles.SHADOW:
 			num_components -= 1

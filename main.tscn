@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=10 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://da7s8c0h5cosn" path="res://number_tile.tscn" id="1_ig7tw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://answer.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -183,7 +184,7 @@ size_flags_vertical = 4
 theme_type_variation = &"box"
 theme_override_constants/separation = 10
 alignment = 1
-script = ExtResource("4_1bvp3")
+script = ExtResource("7_272bh")
 allowed_tiles = Array[int]([2, 1])
 
 [node name="Plus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
