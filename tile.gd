@@ -86,13 +86,7 @@ func _on_gui_input(event: InputEvent) -> void:
 	if not draggable:
 		return
 	if event is InputEventMouseButton:
-		reparent(overlap)
-		if overlap in root.containers:
-			var toplevel = overlap
-			while toplevel.get_parent() != root:
-				toplevel = toplevel.get_parent()
-			root.move_child(toplevel,root.get_child_count()-1)
-		else:
-			root.move_child(self,root.get_child_count()-1)
+		reparent(root)
+		root.move_child(self,root.get_child_count()-1)
 		drag_offset = position - mouse_pos
 		dragging = event.is_pressed()
