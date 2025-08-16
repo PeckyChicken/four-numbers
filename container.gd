@@ -17,7 +17,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	$"..".size = size + Vector2(20,20)
+	#$"..".size = size + Vector2(20,20)
 	pivot_offset = size/2
 	var i = 0
 	for child in children.duplicate():
