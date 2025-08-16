@@ -10,7 +10,6 @@ func _ready() -> void:
 	pass
 
 func delete_previous_answer():
-	$"../../Answer/Symbols".children.clear()
 	$"../../Answer/Symbols".length = 0
 	answer.queue_free()
 	answer = null
@@ -29,28 +28,42 @@ func create_answer(output: int, expression: String, history:Array) -> NumberTile
 	return tile
 
 func clear():
-	for child in children:
+	for child in get_children():
 		child.queue_free()
-	children.clear()
+	get_children().clear()
 	length = 0
 	answer = null
 
 func create_expression() -> String:
 	var components: Array[String] = []
-	for child in children:
+	for child in get_children():
 		if child.type == Root.Tiles.SHADOW:
 			continue
-		components.append(child.get_child(2).text)
+		if child.type == Root.Tiles.NUMBER:
+			components.append(str(child.number))
+		elif child.type == Root.Tiles.OPERATION:
+			components.append(child.operation)
 	
 	var expression = " ".join(components)
+	
+	return expression
+
+func godotify_expression(expression: String) -> String:
+	var components = expression.split(" ")
+	var index = 0
+	for component in components:
+		if component.is_valid_int():
+			components[index] = str(float(component))
+		index += 1
+	expression = " ".join(components)
+	
 	expression = expression.replace("×","*")
 	expression = expression.replace("÷","/")
-	
 	return expression
 
 func create_history() -> Array:
 	var history: Array = []
-	for child in children:
+	for child in get_children():
 		if child.type == Root.Tiles.SHADOW:
 			continue
 		if child.type == Root.Tiles.NUMBER:
@@ -64,11 +77,14 @@ func create_history() -> Array:
 func validate_expression(expression) -> bool:
 	var error = parser.parse(expression)
 	if error != OK:
-		print(parser.get_error_text())
 		return false
 	
 	var result = parser.execute()
-	if parser.has_execute_failed() or round(result) != result:
+	if parser.has_execute_failed():
+		print(parser.get_error_text())
+		return false
+	if round(result) != result:
+		print("Answer was not whole")
 		return false
 	
 	return true
@@ -80,7 +96,7 @@ func calcuate_answer() -> int:
 func _process(_delta: float) -> void:
 	super._process(_delta)
 	var num_components = length
-	for child in children:
+	for child in get_children():
 		if child.type == Root.Tiles.SHADOW:
 			num_components -= 1
 
@@ -88,7 +104,7 @@ func _process(_delta: float) -> void:
 	var expression = create_expression()
 	var history = create_history()
 	
-	if num_components > 1 and validate_expression(expression):
+	if num_components > 1 and validate_expression(godotify_expression(expression)):
 		var output = calcuate_answer()
 		if answer:
 			if answer.number == output:

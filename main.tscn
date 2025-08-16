@@ -134,7 +134,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 number = 42
-expression = "42"
 draggable = true
 
 [node name="Number Tile2" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
@@ -216,5 +215,21 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 operation = "÷"
+draggable = true
+type = 1
+
+[node name="Open Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = "("
+draggable = true
+type = 1
+
+[node name="Close Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+operation = ")"
 draggable = true
 type = 1

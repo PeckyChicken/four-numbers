@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 
 func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
-		assert (container.length <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length,container.max_size,str(container.children)])
+		assert (container.length <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length,container.max_size,str(container.get_children())])
 	var temp_position
 	
 	if temp_position_override:
@@ -40,8 +40,6 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 		temp_position = global_position
 	reparent(container)
 	
-	container.length += 1
-	container.children.append(self)
 	parent_container = container
 	
 	for node in container.get_children():
@@ -52,7 +50,6 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 
 func delete_shadow():
 	if shadow:
-		shadow.parent_container.remove_tile(shadow)
 		shadow.get_parent().length -= 1
 		shadow.queue_free()
 		shadow = null
@@ -109,7 +106,6 @@ func _on_gui_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseButton:
 		if parent_container:
-			parent_container.remove_tile(self)
 			parent_container = null
 		
 		if type == Root.Tiles.ANSWER:
