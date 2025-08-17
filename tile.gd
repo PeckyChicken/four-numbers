@@ -5,9 +5,14 @@ class_name Tile
 
 var extra_data: Dictionary = {}
 
+var movement: float = 0.0
+const CLICK_THRESHOLD = 5.0
+
 var dragging: bool = false
 var drag_offset: Vector2
 var mouse_pos: Vector2
+
+var just_released: int = 0
 
 @export var type: Root.Tiles
 
@@ -17,16 +22,19 @@ var mouse_pos: Vector2
 @onready var shadow_tile: PackedScene = load("res://shadow_tile.tscn")
 
 var parent_container: NumberContainer
+var previous_parent: NumberContainer
 
 var shadow: Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	if get_parent() is NumberContainer:
+		parent_container = get_parent()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_pos = event.position
 	if event is InputEventMouseButton and not event.is_pressed():
+		just_released = -1 * just_released
 		dragging = false
 
 func add_to_container(container: NumberContainer,temp_position_override=null):
@@ -41,6 +49,8 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 	reparent(container)
 	
 	parent_container = container
+	
+	overlap = container.get_parent()
 	
 	for node in container.get_children():
 		if node == self:
@@ -69,7 +79,7 @@ func find_overlap():
 				continue
 		
 		if get_global_rect().intersects(other.get_global_rect()):
-
+			
 			overlap = other
 			delete_shadow()
 			shadow = shadow_tile.instantiate()
@@ -88,32 +98,61 @@ func _process(_delta: float) -> void:
 	if not draggable:
 		return
 	if dragging:
+		movement += (mouse_pos + drag_offset - position).length()
 		position = mouse_pos + drag_offset
 		find_overlap()
 		
 	else:
 		delete_shadow()
+		if just_released == 1:
+			just_released = 0
+			
+			if movement < CLICK_THRESHOLD:
+				quick_move()
+				return
 		if overlap in root.containers:
 			
 			if not parent_container == overlap.get_child(0):
-
+				print("Total mouse movement: %s" % [movement])
 				add_to_container(overlap.get_child(0))
 				if parent_container is AnswerContainer:
 					parent_container.recreate_expression()
-			
+
+func quick_move():
+	print("quick-moving")
+	var expression_container: ExpressionContainer = root.get_node("Equation/Expression/Symbols")
+	var answer_container: AnswerContainer = root.get_node("Equation/Answer/Symbols")
+	var storage_container: NumberContainer = root.get_node("Storage/Symbols")
+	var operation_container: OperationContainer = root.get_node("Operations/Symbols")
+	
+	if previous_parent in [storage_container,operation_container]:
+		add_to_container(expression_container,Vector2.INF)
+	elif previous_parent == answer_container:
+		add_to_container(storage_container,Vector2.INF)
+	elif previous_parent == expression_container:
+		if self is NumberTile:
+			add_to_container(storage_container,Vector2.INF)
+		elif self is OperationTile:
+			add_to_container(operation_container,Vector2.INF)
+
+func _on_click(event) -> void:
+	movement = 0
+	just_released = -1
+	if parent_container:
+		previous_parent = parent_container
+		parent_container = null
+	
+	if type == Root.Tiles.ANSWER:
+		type = Root.Tiles.NUMBER
+		extra_data["expression"].clear()
+		
+	reparent(root)
+	root.move_child(self,root.get_child_count()-1)
+	drag_offset = position - mouse_pos
+	dragging = event.is_pressed()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if not draggable:
 		return
 	if event is InputEventMouseButton:
-		if parent_container:
-			parent_container = null
-		
-		if type == Root.Tiles.ANSWER:
-			type = Root.Tiles.NUMBER
-			extra_data["expression"].clear()
-			
-		reparent(root)
-		root.move_child(self,root.get_child_count()-1)
-		drag_offset = position - mouse_pos
-		dragging = event.is_pressed()
+		_on_click(event)

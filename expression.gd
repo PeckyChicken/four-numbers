@@ -79,26 +79,43 @@ func remove_ops(expression: String) -> String:
 		expression = expression.replace(" "+op,"")
 	return expression
 
-func check_repeating_numbers(expression: String) -> bool:
-	var components = expression.replace(" (","").replace(" )","").split(" ")#
+func check_operators(expression: String) -> bool:
+	var components: PackedStringArray = expression.split(" ")
 	if len(components) < 2:
 		return true
 	var index = 0
 	for component in components:
-		if component.is_valid_float() and index != 0:
-			if components[index-1].is_valid_float():
-				
+		if component in operation_array:
+			#print("Component %s is in operation array, running checks." % [component])
+			#print("DEBUG DATA: components: %s index: %s operation_array: %s" % [components,index,operation_array])
+			if component in "()":
+				#print("Component is a bracket, ignoring")
+				index += 1
+				continue
+			if index == 0 or index == len(components)-1:
+				#print("Operation found at start, invalid.")
 				return true
-		else:
-			if component in operation_array:
-				if index == 0:
-					return true
-				if components[index-1] in operation_array:
-					return true
+			elif components[index-1] in ["+","-","×","÷","(","*","/"] or components[index+1] in ["+","-","×","÷",")","*","/"]:
+				#print("Previous or next component is also operation, invalid")
+				return true
+			#print("No issues were found with component, continuing")
 		index += 1
 	return false
 
-func validate_expression(expression) -> bool:
+func check_repeating_numbers(expression: String) -> bool:
+	var components: PackedStringArray = expression.replace(" (","").replace(" )","").split(" ")
+	if len(components) < 2:
+		return true
+	var index = 0
+	for component in components:
+		if component.is_valid_float():
+			if index != 0 and components[index-1].is_valid_float():
+				
+				return true
+		index += 1
+	return false
+
+func validate_expression(expression: String) -> bool:
 	var error = parser.parse(expression)
 	if error != OK:
 		return false
@@ -111,7 +128,16 @@ func validate_expression(expression) -> bool:
 		print("Answer was not whole")
 		return false
 	
+	if expression.count("(") != expression.count(")"):
+		return false
+	
+	if not ["+","-","×","÷","*","/"].any(func(x):return x in expression):
+		return false
+	
 	if check_repeating_numbers(expression):
+		return false
+	
+	if check_operators(expression):
 		return false
 	
 	return true
@@ -133,7 +159,7 @@ func _process(_delta: float) -> void:
 	if num_components > 1 and validate_expression(godotify_expression(expression)):
 		var output = calcuate_answer()
 		if answer:
-			if answer.number == output:
+			if answer.number == output and answer.expression == expression:
 				return
 			delete_previous_answer()
 		answer = create_answer(output,expression,history)

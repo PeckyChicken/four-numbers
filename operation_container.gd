@@ -1,3 +1,4 @@
+class_name OperationContainer
 extends NumberContainer
 
 var operation_array = ["+","-","×","÷","(",")"]
