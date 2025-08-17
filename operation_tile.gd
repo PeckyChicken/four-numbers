@@ -19,7 +19,21 @@ func quick_move():
 		operation_container.reset_stock()
 
 func _process(delta: float) -> void:
+	if not dragging:
+		if previous_parent == null:
+			if get_global_rect().intersects(operation_container.get_global_rect()):
+				queue_free()
 	super(delta)
-	if not dragging and parent_container == null:
-		if get_global_rect().intersects(operation_container.get_global_rect()):
-			queue_free()
+	
+func _on_click(event: InputEvent):
+	if not draggable: return
+	if event.is_pressed():
+		Events.PlaySound.emit("pick_up_operation",global_position)
+
+	super(event)
+
+func _input(event: InputEvent):
+	var temp_dragging = dragging
+	super(event)
+	if just_released == 1 and temp_dragging:
+		Events.PlaySound.emit("drop_operation",global_position)

@@ -20,4 +20,20 @@ func _ready() -> void:
 	
 	super()
 
-	
+#func quick_move():
+	#Events.PlaySound.emit("quick_move_number",global_position)
+	#super()
+
+func _on_click(event: InputEvent):
+	if not draggable: return
+	if event.is_pressed():
+		Events.PlaySound.emit("pick_up_number",global_position)
+
+	super(event)
+
+func _input(event: InputEvent):
+	var temp_dragging = dragging
+	super(event)
+	if just_released == 1 and temp_dragging:
+		Events.PlaySound.emit("drop_number",global_position)
+		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=11 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://da7s8c0h5cosn" path="res://number_tile.tscn" id="1_ig7tw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
+[ext_resource type="Script" uid="uid://cwns1k1yeto48" path="res://audio.gd" id="8_5vw27"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -130,13 +131,6 @@ script = ExtResource("4_1bvp3")
 allowed_tiles = Array[int]([2, 0])
 container_type = 1
 
-[node name="Number Tile" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-number = 42
-draggable = true
-
 [node name="Number Tile2" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -156,6 +150,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 number = 50
+draggable = true
+
+[node name="Number Tile" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+number = 42
 draggable = true
 
 [node name="Operations" type="PanelContainer" parent="."]
@@ -235,3 +236,6 @@ size_flags_vertical = 4
 operation = ")"
 draggable = true
 type = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("8_5vw27")

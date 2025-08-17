@@ -34,6 +34,7 @@ var shadow: Tile
 func _ready() -> void:
 	if get_parent() is NumberContainer:
 		parent_container = get_parent()
+		previous_parent = parent_container
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -55,7 +56,7 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 	
 	parent_container = container
 	
-	overlap = container.get_parent()
+	overlap = container
 	
 	for node in container.get_children():
 		if node == self:
@@ -127,7 +128,7 @@ func quick_move():
 		add_to_container(expression_container,Vector2.INF)
 	elif previous_parent == answer_container:
 		add_to_container(storage_container,Vector2.INF)
-	else:
+	elif previous_parent == expression_container:
 		
 		if self is NumberTile:
 			add_to_container(storage_container,Vector2.INF)
