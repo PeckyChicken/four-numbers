@@ -16,10 +16,15 @@ var just_released: int = 0
 
 @export var type: Root.Tiles
 
-@onready var root: Root = get_tree().root.get_child(0)
+@onready var root: Root = get_tree().root.get_child(get_tree().root.get_child_count()-1)
 @onready var overlap: Control = root
 
 @onready var shadow_tile: PackedScene = load("res://shadow_tile.tscn")
+
+@onready var expression_container: ExpressionContainer = root.get_node("Equation/Expression/Symbols")
+@onready var answer_container: AnswerContainer = root.get_node("Equation/Answer/Symbols")
+@onready var storage_container: NumberContainer = root.get_node("Storage/Symbols")
+@onready var operation_container: OperationContainer = root.get_node("Operations/Symbols")
 
 var parent_container: NumberContainer
 var previous_parent: NumberContainer
@@ -120,10 +125,6 @@ func _process(_delta: float) -> void:
 
 func quick_move():
 	print("quick-moving")
-	var expression_container: ExpressionContainer = root.get_node("Equation/Expression/Symbols")
-	var answer_container: AnswerContainer = root.get_node("Equation/Answer/Symbols")
-	var storage_container: NumberContainer = root.get_node("Storage/Symbols")
-	var operation_container: OperationContainer = root.get_node("Operations/Symbols")
 	
 	if previous_parent in [storage_container,operation_container]:
 		add_to_container(expression_container,Vector2.INF)

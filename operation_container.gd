@@ -8,14 +8,18 @@ var operation_array = ["+","-","×","÷","(",")"]
 func _ready() -> void:
 	super()
 
+func tile_added(tile:Tile):
+	super(tile)
+	if tile.type == Root.Tiles.SHADOW:
+		return
+	#print("Operation Container Event: Tile %s added. Children: %s" % [tile,get_children()])
+	if tile.type != Root.Tiles.SHADOW:
+		reset_stock()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	super(delta)
-	
-	while self.length(false) < len(operation_array):
+func reset_stock():
+	while self.length() < len(operation_array):
 		add_child(operation_tile.instantiate())
-		
+	
 	var index = 0
 	var shadows = 0
 	for child in get_children():
@@ -36,10 +40,17 @@ func _process(delta: float) -> void:
 
 		
 		var new_child: OperationTile = operation_tile.instantiate()
-		new_child.operation = operation_array[index]
+		new_child.operation = operation_array[index-shadows]
 		new_child.draggable = true
 		new_child.type = Root.Tiles.OPERATION
 		add_child(new_child)
 		move_child(new_child,index)
-		return
+		index += 1
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	super(delta)
+	
+	reset_stock()
+		
 		

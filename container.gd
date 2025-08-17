@@ -19,6 +19,9 @@ func _ready() -> void:
 	if max_size >= 0:
 		assert (length() <= max_size,"Too many children: Length: %s, Max: %s, Children: %s"%[length(),max_size,get_children()])
 
+func tile_added(_tile: Tile):
+	pass
+
 func length(include_shadow=true) -> int:
 	var _length = 0
 	for child in get_children():

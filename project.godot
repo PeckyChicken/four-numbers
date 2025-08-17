@@ -15,6 +15,10 @@ run/main_scene="uid://dfxrgpbx000de"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Events="*res://EVENTS.gd"
+
 [editor]
 
 movie_writer/movie_file="C:/Users/Benjy/OneDrive/Documents/Workspaces/Web projects/Four Numbers/video.avi"
