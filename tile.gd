@@ -123,12 +123,12 @@ func _process(_delta: float) -> void:
 					parent_container.recreate_expression()
 
 func quick_move():
-	
 	if previous_parent in [storage_container,operation_container]:
 		add_to_container(expression_container,Vector2.INF)
 	elif previous_parent == answer_container:
 		add_to_container(storage_container,Vector2.INF)
 	else:
+		
 		if self is NumberTile:
 			add_to_container(storage_container,Vector2.INF)
 		elif self is OperationTile:

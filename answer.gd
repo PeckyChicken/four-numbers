@@ -28,7 +28,9 @@ func recreate_expression():
 			break
 	assert (child.history, "Tile was passed into answer with no history. This signifies a serious problem with the \"find_overlap()\" function in tile.gd")
 	var expression_container: ExpressionContainer = child.extra_data["expression"] as ExpressionContainer
-	#expression_container.clear()
+	for tile in expression_container.get_children():
+		tile.previous_parent = tile.parent_container
+		tile.quick_move()
 	
 	var expression = child.expression.split(" ")
 	var history = child.history.duplicate()
