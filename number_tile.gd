@@ -3,7 +3,7 @@ class_name NumberTile
 
 @export var number: int = 0
 @export var expression: String = ""
-var history = []
+var history: Array[Variant] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 	$Equation.text = expression
 	if expression:
 		$Number.anchor_bottom = 0.9
-		if history:
+		if not history:
 			history = expression.split(" ")
 	else:
 		$Number.anchor_bottom = 1

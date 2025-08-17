@@ -59,7 +59,7 @@ func find_overlap():
 	for other in root.containers:
 		if other == self:
 			continue
-		if other.get_child(0).length() >= other.get_child(0).max_size and other.get_child(0).max_size >= 0:
+		if other.get_child(0).length(false) >= other.get_child(0).max_size and other.get_child(0).max_size >= 0:
 			continue
 		if type not in other.get_child(0).allowed_tiles:
 			continue
@@ -96,8 +96,10 @@ func _process(_delta: float) -> void:
 		if overlap in root.containers:
 			
 			if not parent_container == overlap.get_child(0):
-				
+
 				add_to_container(overlap.get_child(0))
+				if parent_container is AnswerContainer:
+					parent_container.recreate_expression()
 			
 
 func _on_gui_input(event: InputEvent) -> void:
@@ -109,7 +111,6 @@ func _on_gui_input(event: InputEvent) -> void:
 		
 		if type == Root.Tiles.ANSWER:
 			type = Root.Tiles.NUMBER
-			print((self as NumberTile).history)
 			extra_data["expression"].clear()
 			
 		reparent(root)

@@ -130,8 +130,6 @@ func _process(_delta: float) -> void:
 	
 	var expression = create_expression()
 	var history = create_history()
-	print(expression)
-	
 	if num_components > 1 and validate_expression(godotify_expression(expression)):
 		var output = calcuate_answer()
 		if answer:
