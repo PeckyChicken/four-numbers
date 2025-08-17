@@ -31,7 +31,8 @@ func recreate_expression():
 	#expression_container.clear()
 	
 	var expression = child.expression.split(" ")
-	var history = child.history
+	var history = child.history.duplicate()
+	print(history)
 	
 	expression.reverse()
 	history.reverse()
@@ -51,6 +52,7 @@ func recreate_expression():
 			if typeof(h_component) != typeof(e_component):
 				new_tile.extra_data["expression"] = expression_container
 				new_tile.expression = " ".join(compress_history_component(h_component))
+				new_tile.history = h_component
 		else:
 			new_tile = operation_tile.instantiate() as OperationTile
 			new_tile.operation = e_component
