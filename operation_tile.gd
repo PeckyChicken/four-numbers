@@ -19,11 +19,12 @@ func quick_move():
 		operation_container.reset_stock()
 
 func _process(delta: float) -> void:
+	super(delta)
+	
 	if not dragging:
-		if previous_parent == null:
+		if parent_container == null:
 			if get_global_rect().intersects(operation_container.get_global_rect()):
 				queue_free()
-	super(delta)
 	
 func _on_click(event: InputEvent):
 	if not draggable: return
