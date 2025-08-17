@@ -118,23 +118,21 @@ func _process(_delta: float) -> void:
 		if overlap in root.containers:
 			
 			if not parent_container == overlap.get_child(0):
-				print("Total mouse movement: %s" % [movement])
 				add_to_container(overlap.get_child(0))
 				if parent_container is AnswerContainer:
 					parent_container.recreate_expression()
 
 func quick_move():
-	print("quick-moving")
 	
 	if previous_parent in [storage_container,operation_container]:
 		add_to_container(expression_container,Vector2.INF)
 	elif previous_parent == answer_container:
 		add_to_container(storage_container,Vector2.INF)
-	elif previous_parent == expression_container:
+	else:
 		if self is NumberTile:
 			add_to_container(storage_container,Vector2.INF)
 		elif self is OperationTile:
-			add_to_container(operation_container,Vector2.INF)
+			queue_free()
 
 func _on_click(event) -> void:
 	movement = 0

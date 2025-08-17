@@ -17,3 +17,9 @@ func quick_move():
 	super()
 	if previous_parent is OperationContainer:
 		operation_container.reset_stock()
+
+func _process(delta: float) -> void:
+	super(delta)
+	if not dragging and parent_container == null:
+		if get_global_rect().intersects(operation_container.get_global_rect()):
+			queue_free()

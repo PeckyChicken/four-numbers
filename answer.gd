@@ -32,7 +32,6 @@ func recreate_expression():
 	
 	var expression = child.expression.split(" ")
 	var history = child.history.duplicate()
-	print(history)
 	
 	expression.reverse()
 	history.reverse()
