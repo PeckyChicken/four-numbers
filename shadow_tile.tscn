@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://h4kib28sknqg"]
 
-[ext_resource type="Script" uid="uid://uxkp36mrxj7q" path="res://tile.gd" id="1_0cdx6"]
+[ext_resource type="Script" uid="uid://dkqh5nof2equp" path="res://shadow_tile.gd" id="1_0cdx6"]
 
 [node name="Shadow Tile" type="Control"]
 modulate = Color(1, 1, 1, 0.5)

@@ -85,7 +85,6 @@ func find_overlap():
 				continue
 		
 		if get_global_rect().intersects(other.get_global_rect()):
-			
 			overlap = other
 			delete_shadow()
 			shadow = shadow_tile.instantiate()
