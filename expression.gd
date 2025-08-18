@@ -125,7 +125,7 @@ func validate_expression(expression: String) -> bool:
 		print(parser.get_error_text())
 		return false
 	
-	if result == -INF:
+	if abs(result) == INF:
 		print("Division by 0")
 		return false
 	

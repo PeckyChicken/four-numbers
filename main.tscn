@@ -135,7 +135,7 @@ container_type = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-number = 20
+number = 0
 draggable = true
 
 [node name="Number Tile3" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
