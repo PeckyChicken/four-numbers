@@ -124,6 +124,11 @@ func validate_expression(expression: String) -> bool:
 	if parser.has_execute_failed():
 		print(parser.get_error_text())
 		return false
+	
+	if result == -INF:
+		print("Division by 0")
+		return false
+	
 	if round(result) != result:
 		print("Answer was not whole")
 		return false
