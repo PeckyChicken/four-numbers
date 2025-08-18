@@ -19,7 +19,7 @@ func compress_history_component(component) -> Array:
 		history.append(int(parser.execute()))
 	
 	return history
-	
+
 func recreate_expression():
 	var child: NumberTile
 	for children in get_children():
@@ -28,9 +28,7 @@ func recreate_expression():
 			break
 	assert (child.history, "Tile was passed into answer with no history. This signifies a serious problem with the \"find_overlap()\" function in tile.gd")
 	var expression_container: ExpressionContainer = child.extra_data["expression"] as ExpressionContainer
-	for tile in expression_container.get_children():
-		tile.previous_parent = tile.parent_container
-		tile.quick_move()
+	expression_container.return_numbers()
 	
 	var expression = child.expression.split(" ")
 	var history = child.history.duplicate()

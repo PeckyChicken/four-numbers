@@ -87,6 +87,11 @@ func create_history() -> Array:
 	
 	return history
 
+func return_numbers():
+	for tile in get_children():
+		tile.previous_parent = tile.parent_container
+		tile.quick_move()
+
 func remove_ops(expression: String) -> String:
 	for op in operation_array:
 		expression = expression.replace(" "+op,"")

@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=10 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://da7s8c0h5cosn" path="res://number_tile.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
 [ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://answer.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
@@ -130,34 +129,6 @@ alignment = 1
 script = ExtResource("4_1bvp3")
 allowed_tiles = Array[int]([2, 0])
 container_type = 1
-
-[node name="Number Tile2" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-number = 0
-draggable = true
-
-[node name="Number Tile3" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-number = 32
-draggable = true
-
-[node name="Number Tile4" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-number = 50
-draggable = true
-
-[node name="Number Tile" parent="Storage/Symbols" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-number = 42
-draggable = true
 
 [node name="Operations" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(660, 110)

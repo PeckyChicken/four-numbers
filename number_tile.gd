@@ -20,9 +20,38 @@ func _ready() -> void:
 	
 	super()
 
-#func quick_move():
-	#Events.PlaySound.emit("quick_move_number",global_position)
-	#super()
+func _process(delta: float) -> void:
+	super(delta)
+	
+	if not dragging:
+		if parent_container == null:
+			if get_global_rect().intersects(answer_container.get_global_rect()):
+				if not answer_container.get_children().any(func(x):return x is ErrorTile):
+					return
+				if not self.expression:
+					return
+				for child in answer_container.get_children():
+					child.queue_free()
+				add_to_container(answer_container)
+				answer_container.recreate_expression()
+
+func find_overlap():
+	super()
+	
+	if get_global_rect().intersects(answer_container.get_global_rect()):
+		if not answer_container.get_children().any(func(x):return x is ErrorTile):
+			return
+		if not self.expression:
+			return
+		overlap = answer_container
+		delete_shadow()
+		shadow = shadow_tile.instantiate()
+		shadow.position = position
+		shadow.type = Root.Tiles.SHADOW
+		add_sibling(shadow)
+		shadow.add_to_container(overlap,global_position)
+		
+		return
 
 func _on_click(event: InputEvent):
 	if not draggable: return

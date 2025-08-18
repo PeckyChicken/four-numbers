@@ -45,7 +45,7 @@ func _input(event: InputEvent) -> void:
 
 func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
-		assert (container.length() <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length(),container.max_size,str(container.get_children())])
+		assert (container.length(false) <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length(),container.max_size,str(container.get_children())])
 	var temp_position
 	
 	if temp_position_override:
