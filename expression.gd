@@ -3,10 +3,13 @@ extends NumberContainer
 
 var operation_array = ["+","-","×","÷","(",")","*","/"]
 
-var answer: NumberTile
+var answer: Tile
 @onready var number_tile: PackedScene = load("res://number_tile.tscn")
+@onready var error_tile: PackedScene = load("res://error_tile.tscn")
 
 var parser := Expression.new()
+
+var error_outputs: Dictionary[String,String] = {"Division by 0":"###","Parser error":"!","Not whole":"###"}
 
 func _ready() -> void:
 	pass
@@ -23,6 +26,16 @@ func create_answer(output: int, expression: String, history:Array) -> NumberTile
 	tile.type = Root.Tiles.ANSWER
 	tile.draggable = true
 	tile.extra_data["expression"] = self
+	add_sibling(tile)
+	tile.add_to_container($"../../Answer/Symbols")
+	
+	return tile
+
+func create_error(message):
+	var tile: ErrorTile = error_tile.instantiate()
+	tile.message = message
+	tile.output = error_outputs.get(message,"!")
+	tile.draggable = false
 	add_sibling(tile)
 	tile.add_to_container($"../../Answer/Symbols")
 	
@@ -115,37 +128,34 @@ func check_repeating_numbers(expression: String) -> bool:
 		index += 1
 	return false
 
-func validate_expression(expression: String) -> bool:
+func validate_expression(expression: String) -> Array:
 	var error = parser.parse(expression)
 	if error != OK:
-		return false
+		return [false,"Parser error"]
+	
+	if expression.count("(") != expression.count(")"):
+		return [false,"Parser error"]
+	
+	if not ["+","-","×","÷","*","/"].any(func(x):return x in expression):
+		return [false,"Parser error"]
+	
+	if check_repeating_numbers(expression):
+		return [false,"Parser error"]
+	
+	if check_operators(expression):
+		return [false,"Parser error"]
 	
 	var result = parser.execute()
 	if parser.has_execute_failed():
-		print(parser.get_error_text())
-		return false
+		return [false,parser.get_error_text()]
 	
 	if abs(result) == INF:
-		print("Division by 0")
-		return false
+		return [false,"Division by 0"]
 	
 	if round(result) != result:
-		print("Answer was not whole")
-		return false
+		return [false,"Not whole"]
 	
-	if expression.count("(") != expression.count(")"):
-		return false
-	
-	if not ["+","-","×","÷","*","/"].any(func(x):return x in expression):
-		return false
-	
-	if check_repeating_numbers(expression):
-		return false
-	
-	if check_operators(expression):
-		return false
-	
-	return true
+	return [true,""]
 
 func calcuate_answer() -> int:
 	return int(parser.execute())
@@ -161,13 +171,23 @@ func _process(_delta: float) -> void:
 	
 	var expression = create_expression()
 	var history = create_history()
-	if num_components > 1 and validate_expression(godotify_expression(expression)):
-		var output = calcuate_answer()
-		if answer:
-			if answer.number == output and answer.expression == expression:
-				return
-			delete_previous_answer()
-		answer = create_answer(output,expression,history)
+	if num_components > 1:
+		var parse_check = validate_expression(godotify_expression(expression))
+		if parse_check[0]:
+			var output = calcuate_answer()
+			if answer:
+				if answer is NumberTile and answer.number == output and answer.expression == expression:
+					return
+				delete_previous_answer()
+			answer = create_answer(output,expression,history)
+			
+		else:
+			if answer:
+				if answer is ErrorTile and answer.message == parse_check[1]:
+					return
+				delete_previous_answer()
+			answer = create_error(parse_check[1])
+			
 	else:
 		if answer:
 			delete_previous_answer()
