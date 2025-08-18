@@ -21,9 +21,10 @@ func _ready() -> void:
 	super()
 
 func _process(delta: float) -> void:
+	var temp_just_released = just_released
 	super(delta)
 	
-	if not dragging:
+	if temp_just_released:
 		if parent_container == null:
 			if get_global_rect().intersects(answer_container.get_global_rect()):
 				if not answer_container.get_children().any(func(x):return x is ErrorTile):
@@ -34,6 +35,8 @@ func _process(delta: float) -> void:
 					child.queue_free()
 				add_to_container(answer_container)
 				answer_container.recreate_expression()
+
+
 
 func find_overlap():
 	super()
