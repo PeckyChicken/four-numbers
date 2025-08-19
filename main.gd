@@ -15,6 +15,7 @@ var target_tile: NumberTile
 
 var starting_numbers: Array[int]
 @onready var NUMBER_TILE_SCENE: PackedScene = load("res://number_tile.tscn")
+@onready var TARGET_TILE_SCENE: PackedScene = load("res://target_tile.tscn")
 
 @onready var date := Time.get_datetime_dict_from_system()
 var puzzle_seed: int
@@ -45,11 +46,10 @@ func set_date():
 func create_target_tile():
 	for prev_tile in $Target/Symbols.get_children():
 		prev_tile.queue_free()
-	target_tile = NUMBER_TILE_SCENE.instantiate()
+	target_tile = TARGET_TILE_SCENE.instantiate()
 	target_tile.type = Tiles.STATIC
 	target_tile.number = target
 	target_tile.expression = "Target"
-	
 	$Target/Symbols.add_child(target_tile)
 
 func create_number_tiles(numbers: Array[int]):

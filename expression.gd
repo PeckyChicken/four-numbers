@@ -9,7 +9,7 @@ var answer: Tile
 
 var parser := Expression.new()
 
-var error_outputs: Dictionary[String,String] = {"Division by 0":"###","Parser error":"!","Not whole":"###"}
+var error_outputs: Dictionary[String,String] = {"Division by 0":"###","Parse error":"!","Not whole":"###"}
 
 func _ready() -> void:
 	pass
@@ -136,19 +136,19 @@ func check_repeating_numbers(expression: String) -> bool:
 func validate_expression(expression: String) -> Array:
 	var error = parser.parse(expression)
 	if error != OK:
-		return [false,"Parser error"]
+		return [false,"Parse error"]
 	
 	if expression.count("(") != expression.count(")"):
-		return [false,"Parser error"]
+		return [false,"Parse error"]
 	
 	if not ["+","-","×","÷","*","/"].any(func(x):return x in expression):
-		return [false,"Parser error"]
+		return [false,"Parse error"]
 	
 	if check_repeating_numbers(expression):
-		return [false,"Parser error"]
+		return [false,"Parse error"]
 	
 	if check_operators(expression):
-		return [false,"Parser error"]
+		return [false,"Parse error"]
 	
 	var result = parser.execute()
 	if parser.has_execute_failed():
