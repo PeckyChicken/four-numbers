@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	var temp_just_released = just_released
 	super(delta)
 	
-	if temp_just_released:
+	if temp_just_released and not dragging:
 		if parent_container == null:
 			if get_global_rect().intersects(answer_container.get_global_rect()):
 				if not answer_container.get_children().any(func(x):return x is ErrorTile):
