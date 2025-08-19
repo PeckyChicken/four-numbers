@@ -13,7 +13,7 @@ enum Tiles{
 var target = 22
 var target_tile: NumberTile
 
-var starting_numbers: Array[int] = [12,54,66,67]
+var starting_numbers: Array[int]
 @onready var NUMBER_TILE_SCENE: PackedScene = load("res://number_tile.tscn")
 
 @onready var date := Time.get_datetime_dict_from_system()
@@ -26,8 +26,6 @@ const MONTHS = ["January", "February", "March", "April", "May", "June",
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	create_target_tile()
-	create_number_tiles(starting_numbers)
 	date["hour"] = 0
 	date["minute"] = 0
 	date["second"] = 0

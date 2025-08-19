@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=11 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://cwns1k1yeto48" path="res://audio.gd" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -47,6 +48,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 17
 text = "Four Numbers
 Tuesday, August 19, 2025"
 horizontal_alignment = 1
@@ -235,6 +237,7 @@ offset_bottom = 55.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("8_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Target"]
 modulate = Color(2, 2, 2, 1)
