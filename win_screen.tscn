@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8vv2erkk11hq"]
+
+[ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2arl"]
+bg_color = Color(0.0941176, 0.101961, 0.121569, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.164706, 0.176471, 0.207843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmwda"]
+bg_color = Color(0.121569, 0.133333, 0.160784, 1)
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(0.164706, 0.176471, 0.207843, 1)
+
+[node name="Win Screen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l2arl")
+
+[node name="Fade" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25)
+
+[node name="Stats" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33
+anchor_top = 0.1
+anchor_right = 0.66
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2arl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Congratulations" type="RichTextLabel" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "Four Numbers solved!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="Time" type="RichTextLabel" parent="Stats/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[img alt=\"Time\"]hourglass.png[/img] 0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Moves" type="RichTextLabel" parent="Stats/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[img alt=\"Moves\"]swapping.png[/img] 8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wmwda")
+
+[node name="Solution" type="RichTextLabel" parent="Stats/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "(54 + 67) x 12 / 66 = 22"
+horizontal_alignment = 1
+vertical_alignment = 1

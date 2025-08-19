@@ -1,3 +1,4 @@
 extends Node
 
-signal PlaySound(sound,position)
+signal PlaySound(sound:String,position:Vector2)
+signal TileCreated(tile:Tile)

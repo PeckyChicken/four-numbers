@@ -32,6 +32,7 @@ var previous_parent: NumberContainer
 var shadow: Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Events.TileCreated.emit(self)
 	if get_parent() is NumberContainer:
 		parent_container = get_parent()
 		previous_parent = parent_container
@@ -113,11 +114,13 @@ func _process(_delta: float) -> void:
 			just_released = 0
 			
 			if movement < CLICK_THRESHOLD:
+				root.moves += 1
 				quick_move()
 				return
 		if overlap in root.containers:
 			
 			if not parent_container == overlap.get_child(0):
+				root.moves += 1
 				add_to_container(overlap.get_child(0))
 				if parent_container is AnswerContainer:
 					parent_container.recreate_expression()

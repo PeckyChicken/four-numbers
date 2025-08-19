@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 					return
 				if not self.expression:
 					return
+				root.moves += 1
 				for child in answer_container.get_children():
 					child.queue_free()
 				add_to_container(answer_container)

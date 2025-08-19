@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dsbybydfvfni8"]
 
-[ext_resource type="Script" uid="uid://bdpoeev556b8s" path="res://number_tile.gd" id="1_wmxdp"]
+[ext_resource type="Script" uid="uid://cbndktxlnt41s" path="res://target_tile.gd" id="1_wmxdp"]
 
 [node name="Target Tile" type="Control"]
 custom_minimum_size = Vector2(100, 100)
