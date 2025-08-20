@@ -6,7 +6,7 @@ extends PanelContainer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#$CalendarButton._create_calendar()
-	$CalendarButton.calendar_confirmed.connect(date_selected)
+	pass
 
 func date_selected(date,__):
 	date["hour"] = 0
@@ -16,6 +16,7 @@ func date_selected(date,__):
 	new_scene.date = date
 	new_scene.date_override = true
 	get_tree().root.add_child(new_scene)
+	new_scene.set_date()
 	get_parent().queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

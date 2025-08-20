@@ -41,6 +41,7 @@ func _ready() -> void:
 	date["hour"] = 0
 	date["minute"] = 0
 	date["second"] = 0
+	print(date)
 	puzzle_seed = Time.get_unix_time_from_datetime_dict(date)
 	print(puzzle_seed)
 	set_date()

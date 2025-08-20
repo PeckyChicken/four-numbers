@@ -72,8 +72,8 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 	var start = true
 	
 	seed(puzzle_seed)
-	while start or target_range.x > target or target_range.y < target or check_one_operation(numbers,target):
-		if attempts >= 50:
+	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target):
+		if attempts >= 25:
 			return -1
 		attempts += 1
 		start = false
