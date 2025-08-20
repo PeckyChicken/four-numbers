@@ -71,7 +71,7 @@ func check_win(tile:Tile):
 		get_tree().paused = true
 
 func set_date():
-	$Date.text = "Four Numbers\n%s, %d %s %d" % [
+	$Date.text = "Quad Target\n%s, %d %s %d" % [
 		WEEKDAYS[date.weekday],
 		date.day,
 		MONTHS[date.month - 1],

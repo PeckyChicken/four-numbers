@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Four Numbers"
+config/name="Quad Target"
 run/main_scene="uid://dfxrgpbx000de"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
-boot_splash/show_image=false
+boot_splash/image="uid://4auj48f88iy5"
 config/icon="res://icon.svg"
 
 [autoload]

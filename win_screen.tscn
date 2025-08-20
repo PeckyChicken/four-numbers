@@ -48,7 +48,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
-text = "Four Numbers solved!"
+text = "Quad Target solved!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
