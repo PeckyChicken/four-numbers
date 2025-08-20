@@ -17,7 +17,6 @@ func _ready() -> void:
 	
 	root.target = -1
 	
-	
 	while root.target == -1:
 		root.starting_numbers = create_numbers(root.puzzle_seed)
 		root.target = create_target(root.starting_numbers,root.puzzle_seed)
@@ -73,7 +72,7 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 	
 	seed(puzzle_seed)
 	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target):
-		if attempts >= 25:
+		if attempts >= 50:
 			return -1
 		attempts += 1
 		start = false
