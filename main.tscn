@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
+[ext_resource type="StyleBox" uid="uid://b4ft1tecblwx8" path="res://container.tres" id="2_kek77"]
 [ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://answer.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
@@ -11,13 +12,6 @@
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.164706, 0.164706, 0.164706, 1)
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -50,8 +44,8 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 theme_override_font_sizes/normal_font_size = 17
-text = "Four Numbers you should not be seeing this text
-Tuesday, August 19, 2025"
+text = "If you are seeing this text in-game then you are witnessing a bug.
+Make a report on the GitHub."
 horizontal_alignment = 1
 
 [node name="Equation" type="HBoxContainer" parent="."]
@@ -75,7 +69,7 @@ alignment = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/panel = ExtResource("2_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Equation/Expression"]
 modulate = Color(2, 2, 2, 1)
@@ -101,7 +95,7 @@ type = 3
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/panel = ExtResource("2_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Equation/Answer"]
 modulate = Color(2, 2, 2, 1)
@@ -131,7 +125,7 @@ offset_right = 55.0
 offset_bottom = 110.0
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/panel = ExtResource("2_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Storage"]
 modulate = Color(2, 2, 2, 1)
@@ -161,7 +155,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/panel = ExtResource("2_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Operations"]
 modulate = Color(2, 2, 2, 1)
@@ -243,6 +237,7 @@ offset_bottom = 55.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_kek77")
 script = ExtResource("8_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Target"]
