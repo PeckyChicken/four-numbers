@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	
 	if not dragging:
 		if parent_container == null:
-			if get_global_rect().intersects(operation_container.get_global_rect()):
+			if get_global_rect().intersects(operation_container.get_global_rect()) and draggable:
 				queue_free()
 	
 func _on_click(event: InputEvent):
