@@ -106,6 +106,7 @@ func _process(_delta: float) -> void:
 	if dragging:
 		movement += (mouse_pos + drag_offset - position).length()
 		position = mouse_pos + drag_offset
+		position = position.clamp(Vector2.ZERO,get_viewport_rect().size-self.size)
 		find_overlap()
 		
 	else:
