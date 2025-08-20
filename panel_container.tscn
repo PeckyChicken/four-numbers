@@ -30,6 +30,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Select date"
 script = ExtResource("2_x66kw")
+use_letter_days = true
 metadata/_custom_type_script = "uid://bty3rid1xj8yd"
 
 [connection signal="calendar_confirmed" from="VBoxContainer/CalendarButton" to="." method="date_selected"]

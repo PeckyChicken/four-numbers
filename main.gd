@@ -41,7 +41,6 @@ func _ready() -> void:
 	date["hour"] = 0
 	date["minute"] = 0
 	date["second"] = 0
-	print(date)
 	puzzle_seed = Time.get_unix_time_from_datetime_dict(date)
 	print(puzzle_seed)
 	set_date()
@@ -72,6 +71,7 @@ func check_win(tile:Tile):
 		get_tree().paused = true
 
 func set_date():
+	print("Here, date is %s" % [date])
 	$Date.text = "Four Numbers\n%s, %d %s %d" % [
 		WEEKDAYS[date.weekday],
 		date.day,

@@ -8,10 +8,19 @@ func _ready() -> void:
 	#$CalendarButton._create_calendar()
 	pass
 
+func get_weekday(date:Dictionary) -> int:
+	var dt = Time.get_datetime_dict_from_unix_time(
+		Time.get_unix_time_from_datetime_dict(date)
+	)
+	var weekday_index: int = dt["weekday"] # 0=Sunday, 1=Monday, ..., 6=Saturday
+
+	return weekday_index
+
 func date_selected(date,__):
 	date["hour"] = 0
 	date["minute"] = 0
 	date["second"] = 0
+	date["weekday"] = get_weekday(date)
 	var new_scene: Root = MAIN_SCENE.instantiate()
 	new_scene.date = date
 	new_scene.date_override = true
