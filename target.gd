@@ -7,7 +7,7 @@ var target_range := Vector2i(4,20) * number_count
 
 var solution: String
 
-const OPS = ["+","-","*","/"]
+var OPS = ["+","-","*","/"]
 
 @onready var root: Root = $".."
 
