@@ -13,8 +13,8 @@ func find_overlap():
 	if overlap == root:
 		operation_container.reset_stock()
 
-func quick_move():
-	super()
+func quick_move(container=null):
+	super(container)
 	if previous_parent is OperationContainer:
 		operation_container.reset_stock()
 

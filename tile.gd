@@ -126,19 +126,21 @@ func _process(_delta: float) -> void:
 				if parent_container is AnswerContainer:
 					parent_container.recreate_expression()
 
-func quick_move():
-	if previous_parent in [storage_container,operation_container]:
-		add_to_container(expression_container,Vector2.INF)
-	elif previous_parent == answer_container:
-		add_to_container(storage_container,Vector2.INF)
-	elif previous_parent == expression_container:
-		
-		if self is NumberTile:
-			add_to_container(storage_container,Vector2.INF)
-		elif self is OperationTile:
-			queue_free()
+func quick_move(container=null):
+	if container == null:
+		if previous_parent in [storage_container,operation_container]:
+			container = expression_container
+		elif previous_parent == answer_container:
+			container = storage_container
+		elif previous_parent == expression_container:
+			if self is NumberTile:
+				container = storage_container
+			elif self is OperationTile:
+				queue_free()
+	
+	add_to_container(container,Vector2.INF)
 
-func _on_click(event) -> void:
+func _on_click(event: InputEventMouseButton) -> void:
 	movement = 0
 	just_released = -1
 	if parent_container:
