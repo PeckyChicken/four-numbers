@@ -3,7 +3,7 @@ extends PanelContainer
 
 var number_range := Vector2i(2,60)
 var number_count := 4
-var target_range := Vector2i(4,10) * number_count
+var target_range := Vector2i(4,20) * number_count
 
 var solution: String
 
@@ -14,15 +14,25 @@ const OPS = ["+","-","*","/"]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().process_frame
-	root.starting_numbers = create_numbers(root.puzzle_seed)
-	root.target = create_target(root.starting_numbers,root.puzzle_seed)
+	
+	root.target = -1
+	
+	
+	while root.target == -1:
+		root.starting_numbers = create_numbers(root.puzzle_seed)
+		root.target = create_target(root.starting_numbers,root.puzzle_seed)
+		root.puzzle_seed += 1
+	
+	root.puzzle_seed -= 1
+	
 	
 	root.create_number_tiles(root.starting_numbers)
 	root.create_target_tile()
 	
 
-func create_numbers(puzzle_seed:int) -> Array[int]:
-	seed(puzzle_seed)
+func create_numbers(puzzle_seed:int=-1) -> Array[int]:
+	if puzzle_seed != -1:
+		seed(puzzle_seed)
 	var numbers: Array[int] = []
 	for __ in range(number_count):
 		var n = randi_range(number_range.x,number_range.y)
@@ -58,10 +68,14 @@ func check_one_operation(numbers,target):
 func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 	numbers = numbers.duplicate()
 	var target: int = -1
+	var attempts: int = 0
 	var start = true
 	
 	seed(puzzle_seed)
 	while start or target_range.x > target or target_range.y < target or check_one_operation(numbers,target):
+		if attempts >= 50:
+			return -1
+		attempts += 1
 		start = false
 		solution = ""
 		target = -1

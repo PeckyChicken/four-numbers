@@ -1,14 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8vv2erkk11hq"]
 
 [ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2arl"]
-bg_color = Color(0.0941176, 0.101961, 0.121569, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.164706, 0.176471, 0.207843, 1)
+[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="2_wmwda"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmwda"]
 bg_color = Color(0.121569, 0.133333, 0.160784, 1)
@@ -46,7 +39,7 @@ anchor_right = 0.66
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_l2arl")
+theme_override_styles/panel = ExtResource("2_wmwda")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
 layout_mode = 2

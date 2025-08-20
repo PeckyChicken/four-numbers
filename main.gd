@@ -18,8 +18,10 @@ var starting_numbers: Array[int]
 @onready var NUMBER_TILE_SCENE: PackedScene = load("res://number_tile.tscn")
 @onready var TARGET_TILE_SCENE: PackedScene = load("res://target_tile.tscn")
 @onready var WIN_SCENE: PackedScene = load("res://win_screen.tscn")
+@onready var PANEL_CONTAINER_SCENE: PackedScene = load("res://panel_container.tscn")
 
-@onready var date := Time.get_datetime_dict_from_system()
+var date_override: bool = false
+var date: Dictionary
 var puzzle_seed: int
 
 var timer: float = 0.0
@@ -29,8 +31,13 @@ const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frida
 const MONTHS = ["January", "February", "March", "April", "May", "June",
 			  "July", "August", "September", "October", "November", "December"]
 
+var __ := 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not date_override:
+		date = Time.get_datetime_dict_from_system()
+	
 	date["hour"] = 0
 	date["minute"] = 0
 	date["second"] = 0
@@ -89,6 +96,46 @@ func create_number_tiles(numbers: Array[int]):
 		new_tile.draggable = true
 		add_child(new_tile)
 		new_tile.add_to_container($Storage/Symbols,Vector2.INF)
+
+func _input(_event: InputEvent) -> void:
+	if __ == 11:
+		return
+	if Input.is_action_just_pressed("ui_up"):
+		if __ in [0,1]:
+			__ += 1
+		else:
+			__ = 0
+	if Input.is_action_just_pressed("ui_down"):
+		if __ in [2,3]:
+			__ += 1
+		else:
+			__ = 0
+	if Input.is_action_just_pressed("ui_left"):
+		if __ in [4,6]:
+			__ += 1
+		else:
+			__ = 0
+	if Input.is_action_just_pressed("ui_right"):
+		if __ in [5,7]:
+			__ += 1
+		else:
+			__ = 0
+	if Input.is_action_just_pressed("ui_b"):
+		if __ == 8:
+			__ += 1
+		else:
+			__ = 0
+	if Input.is_action_just_pressed("ui_a"):
+		if __ == 9:
+			__ += 1	
+		else:
+			__ = 0
+	if Input.is_action_just_pressed("ui_start"):
+		if __ == 10:
+			__ += 1
+			Events.PlaySound.emit("mysterious",size/2+global_position)
+			add_child(PANEL_CONTAINER_SCENE.instantiate())
+	
 
 func _process(delta: float) -> void:
 	timer += delta
