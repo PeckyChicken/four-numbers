@@ -137,6 +137,7 @@ func quick_move(container=null):
 				container = storage_container
 			elif self is OperationTile:
 				queue_free()
+				return
 	
 	add_to_container(container,Vector2.INF)
 
