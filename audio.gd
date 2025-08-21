@@ -3,6 +3,7 @@ extends Control
 var cache: Dictionary[String,AudioStream] = {}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	Events.PlaySound.connect(play_sound)
 
 func play_sound(sound:String,location:Vector2):
