@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=13 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://cwns1k1yeto48" path="res://audio.gd" id="8_5vw27"]
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
+[ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://hard_mode.svg" id="10_4c57u"]
+[ext_resource type="Script" uid="uid://dia6rgk03nafl" path="res://difficulty.gd" id="11_efxa6"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -253,3 +255,14 @@ script = ExtResource("4_1bvp3")
 max_size = 1
 allowed_tiles = Array[int]([0, 1, 2])
 container_type = 2
+
+[node name="Difficulty" type="CheckButton" parent="."]
+layout_mode = 1
+offset_right = 163.0
+offset_bottom = 32.0
+button_pressed = true
+text = "Hard Mode"
+icon = ExtResource("10_4c57u")
+script = ExtResource("11_efxa6")
+
+[connection signal="pressed" from="Difficulty" to="Difficulty" method="_on_pressed"]

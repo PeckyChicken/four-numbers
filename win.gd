@@ -12,6 +12,9 @@ func _ready() -> void:
 	$Stats/VBoxContainer/HBoxContainer/Time.text = "[img]hourglass.png[/img] %s" % [format_time(int(time))]
 	$Stats/VBoxContainer/HBoxContainer/Moves.text = "[img]swapping.png[/img] %s " % [str(moves)]
 	$Stats/VBoxContainer/Panel/Solution.text = solution
+	
+	var mode: String = ["easy","hard"][root.difficulty]
+	$Stats/VBoxContainer/Mode.text = "[img]%s_mode.svg[/img] %s Mode" % [mode,mode.capitalize()]
 	fade_on()
 
 func format_time(seconds: int):

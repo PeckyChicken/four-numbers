@@ -15,6 +15,9 @@ var OPS = ["+","-","*","/"]
 func _ready() -> void:
 	await get_tree().process_frame
 	
+	if root.difficulty == 0:
+		OPS = ["+","-"]
+	
 	root.target = -1
 	
 	while root.target == -1:
@@ -94,13 +97,13 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 			
 			var operation: String
 			
-			if index == len(numbers)-1 and "*" not in used_operations:
+			if root.difficulty == 1 and index == len(numbers)-1 and "*" not in used_operations:
 				operation = "*"
 			else:
 				operation = OPS.pick_random()
 				while "*" in used_operations and operation == "*":
 					operation = OPS.pick_random()
-			
+						
 			used_operations.append(operation)
 			var evaluation = evaluate_op(target,number,operation)
 			

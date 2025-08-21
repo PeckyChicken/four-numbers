@@ -22,6 +22,7 @@ func date_selected(date,__):
 	date["second"] = 0
 	date["weekday"] = get_weekday(date)
 	var new_scene: Root = MAIN_SCENE.instantiate()
+	new_scene.difficulty = $"..".difficulty
 	new_scene.date = date
 	new_scene.date_override = true
 	get_tree().root.add_child(new_scene)
