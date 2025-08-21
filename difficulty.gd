@@ -37,3 +37,4 @@ func _on_pressed() -> void:
 	new_scene.set_date()
 	get_tree().paused = false
 	get_parent().queue_free()
+	Events.PlaySound.emit("pick_up_number",root.size/2)
