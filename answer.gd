@@ -20,6 +20,14 @@ func compress_history_component(component) -> Array:
 	
 	return history
 
+func tile_added(_tile):
+	$"../Label".hide()
+
+func _process(delta):
+	super(delta)
+	if get_child_count() == 0:
+		$"../Label".show()
+
 func recreate_expression():
 	var child: NumberTile
 	for children in get_children():

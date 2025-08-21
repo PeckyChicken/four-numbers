@@ -59,6 +59,8 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 	
 	overlap = container
 	
+	container.tile_added(self)
+	
 	for node in container.get_children():
 		if node == self:
 			continue

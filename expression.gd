@@ -165,9 +165,15 @@ func validate_expression(expression: String) -> Array:
 func calcuate_answer() -> int:
 	return int(parser.execute())
 
+func tile_added(_tile):
+	$"../Label".hide()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	super._process(_delta)
+	if get_child_count() == 0:
+		$"../Label".show()
+	
 	var num_components = length()
 	for child in get_children():
 		if child.type == Root.Tiles.SHADOW:
