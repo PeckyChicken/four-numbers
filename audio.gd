@@ -1,4 +1,4 @@
-extends AudioStreamPlayer2D
+extends Control
 
 var cache: Dictionary[String,AudioStream] = {}
 # Called when the node enters the scene tree for the first time.
@@ -9,10 +9,13 @@ func play_sound(sound:String,location:Vector2):
 	if sound not in cache:
 		cache[sound] = load("res://Sounds/%s.wav" % [sound])
 	
-	stream = cache[sound]
+	var player = AudioStreamPlayer2D.new()
+	add_child(player)
+	player.stream = cache[sound]
 	
-	position = location
-	play()
+	player.position = location
+	player.play()
+	player.finished.connect(player.queue_free)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
