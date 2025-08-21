@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=15 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
-[ext_resource type="Script" uid="uid://cwns1k1yeto48" path="res://audio.gd" id="8_5vw27"]
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
 [ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://hard_mode.svg" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://dia6rgk03nafl" path="res://difficulty.gd" id="11_efxa6"]
@@ -89,6 +88,12 @@ script = ExtResource("2_7mycd")
 allowed_tiles = Array[int]([0, 1, 2])
 container_type = 2
 
+[node name="Label" type="RichTextLabel" parent="Equation/Expression"]
+layout_mode = 2
+text = "Expression"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="equals" parent="Equation" instance=ExtResource("5_7mycd")]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -115,6 +120,12 @@ script = ExtResource("3_1bvp3")
 max_size = 1
 allowed_tiles = Array[int]([2, 0])
 container_type = 3
+
+[node name="Label" type="RichTextLabel" parent="Equation/Answer"]
+layout_mode = 2
+text = "Answer"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Storage" type="PanelContainer" parent="."]
 process_mode = 1
@@ -223,11 +234,6 @@ operation = ")"
 draggable = true
 type = 1
 
-[node name="Audio" type="Control" parent="."]
-process_mode = 3
-anchors_preset = 0
-script = ExtResource("8_5vw27")
-
 [node name="Target" type="PanelContainer" parent="."]
 process_mode = 1
 custom_minimum_size = Vector2(100, 100)
@@ -280,11 +286,13 @@ texture = ExtResource("12_dg77c")
 script = ExtResource("13_ycdy4")
 
 [node name="HelpMenu" parent="VBoxContainer/Help" instance=ExtResource("14_w48qg")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = -54.0
 offset_top = 30.0
 offset_right = 272.0
 offset_bottom = 347.0
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="VBoxContainer/Difficulty" to="VBoxContainer/Difficulty" method="_on_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Help" to="VBoxContainer/Help" method="_on_mouse_entered"]

@@ -20,6 +20,7 @@ config/icon="res://logo_small.png"
 [autoload]
 
 Events="*res://EVENTS.gd"
+Audio="*res://AUDIO.gd"
 
 [debug]
 
