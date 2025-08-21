@@ -45,6 +45,72 @@ func create_numbers(puzzle_seed:int=-1) -> Array[int]:
 	numbers.sort()
 	return numbers
 
+func _get_permutations(arr: Array) -> Array:
+	var result: Array = []
+	if arr.size() == 0:
+		return [[]]
+	for i in range(arr.size()):
+		var elem = arr[i]
+		var rest = arr.duplicate()
+		rest.remove_at(i)
+		for p in _get_permutations(rest):
+			result.append([elem] + p)
+	return result
+
+
+func get_all_subarrays(arr: Array) -> Array[Array]:
+	var all: Array[Array] = [[]]  # include empty array
+	var n = arr.size()
+	
+	# generate all subsets
+	for mask in range(1, 1 << n):
+		var subset: Array = []
+		for j in range(n):
+			if mask & (1 << j):
+				subset.append(arr[j])
+		# for each subset, add all permutations
+		for p in _get_permutations(subset):
+			all.append(p)
+	
+	return all
+
+func get_all_choices(arr: Array, k: int) -> Array[Array]:
+	var choices: Array[Array] = []
+	var n: int = arr.size()
+	var total: int = int(pow(n, k))  # total number of choices
+	
+	for index in range(total):
+		var choice: Array = []
+		var num = index
+		for _i in range(k):
+			var digit = num % n
+			choice.insert(0, arr[digit])  # build from rightmost position
+			@warning_ignore("integer_division")
+			num = num / n
+		choices.append(choice)
+	
+	return choices
+
+func is_possible(numbers:Array[int],ops:Array[String],target:int) -> bool:
+	
+	var combinations = get_all_subarrays(numbers)
+	for combination in combinations:
+		if len(combination) <= 2: #Already checked for
+			continue
+		var operation_combinations = get_all_choices(ops,len(combination)-1)
+		
+		for op_comb in operation_combinations:
+			var expression = ""
+			for index in range(len(op_comb)):
+				expression += str(combination[index]) + op_comb[index]
+			expression += str(combination.back())
+			var parser: Expression = Expression.new()
+			parser.parse(expression)
+			if parser.execute() == target:
+				return true
+	
+	return false
+
 func evaluate_op(num1:float,num2:float,op:String) -> float:
 	assert(op in OPS,"Operator %s is not recognised. Valid operators are %s" % [op,", ".join(OPS)])
 	if op == "+":
@@ -74,7 +140,7 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 	var start = true
 	
 	seed(puzzle_seed)
-	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target):
+	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target) or (root.difficulty == 1 and is_possible(numbers,["+","-"],target)):
 		if attempts >= 50:
 			return -1
 		attempts += 1
