@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8vv2erkk11hq"]
+[gd_scene load_steps=5 format=3 uid="uid://b8vv2erkk11hq"]
 
 [ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
 [ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="2_wmwda"]
+[ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://hard_mode.svg" id="3_l5t5q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmwda"]
 bg_color = Color(0.121569, 0.133333, 0.160784, 1)
@@ -30,6 +31,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.25)
 
 [node name="Stats" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.33
@@ -94,7 +96,18 @@ vertical_alignment = 1
 [node name="Mode" type="RichTextLabel" parent="Stats/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
+text = "[img]easy_mode.svg[/img] Easy Mode"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Switch" type="Button" parent="Stats/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "Play Hard?"
+icon = ExtResource("3_l5t5q")
+
+[connection signal="pressed" from="Stats/VBoxContainer/Switch" to="." method="_on_switch_pressed"]

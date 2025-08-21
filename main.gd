@@ -45,7 +45,6 @@ func _ready() -> void:
 	date["minute"] = 0
 	date["second"] = 0
 	puzzle_seed = Time.get_unix_time_from_datetime_dict(date)
-	print(puzzle_seed)
 	set_date()
 	Events.TileCreated.connect(check_win)
 
