@@ -7,7 +7,7 @@ func _ready() -> void:
 
 func play_sound(sound:String,location:Vector2):
 	if sound not in cache:
-		cache[sound] = load("res://Sounds/%s.wav" % [sound])
+		cache[sound] = load("res://Sounds/%s.ogg" % [sound])
 	
 	var player = AudioStreamPlayer2D.new()
 	add_child(player)
