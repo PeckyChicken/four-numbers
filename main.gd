@@ -107,7 +107,7 @@ func _input(_event: InputEvent) -> void:
 		if __ in [0,1]:
 			__ += 1
 		else:
-			__ = 0
+			__ = 1
 	if Input.is_action_just_pressed("ui_down"):
 		if __ in [2,3]:
 			__ += 1
