@@ -101,9 +101,7 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 				operation = "*"
 			else:
 				operation = OPS.pick_random()
-				while "*" in used_operations and operation == "*":
-					operation = OPS.pick_random()
-						
+			
 			used_operations.append(operation)
 			var evaluation = evaluate_op(target,number,operation)
 			
