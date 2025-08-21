@@ -2,7 +2,7 @@ extends CheckButton
 
 @onready var MAIN_SCENE: PackedScene = load("res://main.tscn")
 
-@onready var root = $".."
+@onready var root = $"../.."
 
 @onready var hard_mode_icon: Texture2D = load("res://hard_mode.svg")
 @onready var easy_mode_icon: Texture2D = load("res://easy_mode.svg")
@@ -36,5 +36,5 @@ func _on_pressed() -> void:
 	get_tree().root.add_child(new_scene)
 	new_scene.set_date()
 	get_tree().paused = false
-	get_parent().queue_free()
+	root.queue_free()
 	Events.PlaySound.emit("pick_up_number",root.size/2)
