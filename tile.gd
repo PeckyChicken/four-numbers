@@ -1,5 +1,5 @@
-extends Control
 class_name Tile
+extends Control
 
 @export var draggable: bool = false
 
@@ -32,6 +32,8 @@ var previous_parent: NumberContainer
 var shadow: Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if root is Mobile:
+		scale = Vector2(2,2)
 	Events.TileCreated.emit(self)
 	if get_parent() is NumberContainer:
 		parent_container = get_parent()
@@ -144,6 +146,7 @@ func quick_move(container=null):
 	add_to_container(container,Vector2.INF)
 
 func _on_click(event: InputEventMouseButton) -> void:
+	await get_tree().process_frame
 	movement = 0
 	just_released = -1
 	if parent_container:
@@ -156,7 +159,11 @@ func _on_click(event: InputEventMouseButton) -> void:
 		
 	reparent(root)
 	root.move_child(self,root.get_child_count()-1)
-	drag_offset = position - mouse_pos
+	if root is Mobile:
+		drag_offset = -size/2
+		position = mouse_pos + drag_offset
+	else:
+		drag_offset = position - mouse_pos
 	dragging = event.is_pressed()
 
 func _on_gui_input(event: InputEvent) -> void:

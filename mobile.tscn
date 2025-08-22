@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4ik4o11223i2"]
+
+[ext_resource type="PackedScene" uid="uid://dfxrgpbx000de" path="res://main.tscn" id="1_ytr7k"]
+[ext_resource type="Script" uid="uid://bb6bucxsrtinc" path="res://mobile.gd" id="2_vih1r"]
+
+[node name="Control" instance=ExtResource("1_ytr7k")]
+script = ExtResource("2_vih1r")
+
+[node name="Storage" parent="." index="3"]
+pivot_offset = Vector2(55, 0)
+
+[node name="VBoxContainer" parent="." index="6"]
+offset_left = 46.0
+offset_top = 47.0
+offset_right = 262.0
+offset_bottom = 168.0
+
+[node name="Difficulty" parent="VBoxContainer" index="0"]
+theme_override_font_sizes/font_size = 25
+
+[node name="Help" parent="VBoxContainer" index="1"]
+custom_minimum_size = Vector2(50, 50)

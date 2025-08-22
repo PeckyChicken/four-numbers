@@ -1,5 +1,5 @@
-extends Control
 class_name Root
+extends Control
 
 enum Tiles{
 	NUMBER,
@@ -29,6 +29,8 @@ var puzzle_seed: int
 
 var timer: float = 0.0
 var moves: int = 0
+
+var mobile: bool = false
 
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const MONTHS = ["January", "February", "March", "April", "May", "June",

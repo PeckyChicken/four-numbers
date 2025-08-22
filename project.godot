@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Quad Target"
-run/main_scene="uid://dfxrgpbx000de"
+run/main_scene="uid://lf8utl83pn37"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
 boot_splash/image="uid://4auj48f88iy5"
@@ -25,6 +25,10 @@ Audio="*res://AUDIO.gd"
 [debug]
 
 gdscript/warnings/unused_signal=0
+
+[display]
+
+window/handheld/orientation=6
 
 [editor]
 
@@ -59,3 +63,4 @@ ui_start={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

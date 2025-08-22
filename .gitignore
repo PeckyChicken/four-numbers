@@ -3,3 +3,5 @@
 /android/
 video.mp4
 video.avi
+export_presets.cfg
+*.apk*
