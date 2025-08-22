@@ -277,6 +277,7 @@ mouse_filter = 2
 
 [node name="Difficulty" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 button_pressed = true
 text = "Hard Mode"
 icon = ExtResource("10_4c57u")
