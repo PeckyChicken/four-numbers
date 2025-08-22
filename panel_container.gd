@@ -2,6 +2,7 @@ extends PanelContainer
 
 
 @onready var MAIN_SCENE: PackedScene = load("res://main.tscn")
+@onready var MOBILE_SCENE: PackedScene = load("res://main.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,7 +22,12 @@ func date_selected(date,__):
 	date["minute"] = 0
 	date["second"] = 0
 	date["weekday"] = get_weekday(date)
-	var new_scene: Root = MAIN_SCENE.instantiate()
+	var new_scene: Root
+	if $".." is Mobile:
+		new_scene = MOBILE_SCENE.instantiate()
+	else:
+		new_scene = MAIN_SCENE.instantiate()
+	
 	new_scene.difficulty = $"..".difficulty
 	new_scene.date = date
 	new_scene.date_override = true

@@ -1,6 +1,7 @@
 extends CheckButton
 
 @onready var MAIN_SCENE: PackedScene = load("res://main.tscn")
+@onready var MOBILE_SCENE: PackedScene = load("res://mobile.tscn")
 
 @onready var root = $"../.."
 
@@ -29,7 +30,11 @@ func _process(_delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	var new_scene: Root = MAIN_SCENE.instantiate()
+	var new_scene: Root
+	if root is Mobile:
+		new_scene = MOBILE_SCENE.instantiate()
+	else:
+		new_scene = MAIN_SCENE.instantiate()
 	new_scene.difficulty = button_pressed as int
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
