@@ -15,7 +15,8 @@ func compress_history_component(component) -> Array:
 		
 		var parser := Expression.new()
 		assert (parser.parse(ExpressionContainer.new().godotify_expression(" ".join(item))) == OK, "Error parsing history component %s" % [component])
-		
+		if int(parser.execute()) == 0:
+			$RichTextLabel.text = "0 found"
 		history.append(int(parser.execute()))
 	
 	return history
