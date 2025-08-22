@@ -42,28 +42,28 @@ fit_content = true
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[ul] This answer can be taken out and used like any other number."
+text = "[ul] This answer can be dragged around and used in expressions like any other number."
 fit_content = true
 
 [node name="help4" type="RichTextLabel" parent="VBox"]
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[ul] The answer can also be placed back in the answer box to reverse the calculation"
+text = "[ul] The answer can also be placed back in the answer box to undo the calculation."
 fit_content = true
 
 [node name="help5" type="RichTextLabel" parent="VBox"]
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[ul] Numbers and operations can be clicked on to quickly move them around."
+text = "[ul] Numbers and operations can be clicked on to quickly move them."
 fit_content = true
 
 [node name="help6" type="RichTextLabel" parent="VBox"]
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[ul] Clicking on the = sign recalls everything."
+text = "[ul] Clicking on the = sign clears the expression box."
 fit_content = true
 
 [node name="help7" type="RichTextLabel" parent="VBox"]
