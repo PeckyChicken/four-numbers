@@ -3,6 +3,8 @@ class_name OperationTile
 
 @export var operation: String = ""
 
+var clicked: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super()
@@ -21,17 +23,29 @@ func quick_move(container=null):
 func _process(delta: float) -> void:
 	super(delta)
 	
-	if not dragging:
+	if draggable and not dragging:
 		if parent_container == null:
-			if get_global_rect().intersects(operation_container.get_global_rect()) and draggable:
+			if get_global_rect().intersects(operation_container.get_global_rect()):
 				queue_free()
 	
 func _on_click(event: InputEvent):
-	if not draggable: return
 	if event.is_pressed():
+		clicked = true
 		Events.PlaySound.emit("pick_up_operation",global_position)
+	else:
+		if clicked:
+			clicked = false
+			if operation == "=":
+				Events.ResetTiles.emit()
+				Events.PlaySound.emit("drop_operation",global_position)
+				
+	
+	if draggable:
+		super(event)
 
-	super(event)
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		_on_click(event)
 
 func _input(event: InputEvent):
 	var temp_dragging = dragging

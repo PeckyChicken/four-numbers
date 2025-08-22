@@ -3,6 +3,7 @@ extends TextureRect
 var tween: Tween
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$HelpMenu.hide()
 	fade_help(0,0,true)
 
 
@@ -18,7 +19,9 @@ func fade_help(alpha:float,time:float,async:bool=false):
 		tweeners.insert(0,$HelpMenu)
 	for child in tweeners:
 		tween.tween_property(child,"modulate:a",alpha,time)
-
+	
+	await tween.finished
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
@@ -27,10 +30,13 @@ func _process(_delta: float) -> void:
 func _on_mouse_entered() -> void:
 	fade_help(0,0,true)
 	await tween.finished
+	$HelpMenu.show()
 	Events.PlaySound.emit("show_rules",global_position)
 	fade_help(1,0.1)
 
 
 func _on_mouse_exited() -> void:
 	Events.PlaySound.emit("hide_rules",global_position)
-	fade_help(0,0.25,true)
+	await fade_help(0,0.25,true)
+	$HelpMenu.hide()
+	

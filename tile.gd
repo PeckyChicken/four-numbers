@@ -38,6 +38,8 @@ func _ready() -> void:
 	if get_parent() is NumberContainer:
 		parent_container = get_parent()
 		previous_parent = parent_container
+		
+	Events.ResetTiles.connect(return_home)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -45,6 +47,15 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and not event.is_pressed():
 		just_released = -1 * just_released
 		dragging = false
+
+func return_home():
+	if not draggable:
+		return
+	if self is NumberTile:
+		add_to_container(storage_container)
+	elif self is OperationTile:
+		if parent_container != operation_container:
+			queue_free()
 
 func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
