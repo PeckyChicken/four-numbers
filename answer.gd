@@ -14,9 +14,10 @@ func compress_history_component(component) -> Array:
 		item = compress_history_component(item)
 		
 		var parser := Expression.new()
-		var expression = ExpressionContainer.new().godotify_expression(" ".join(item))
-		assert (parser.parse(expression) == OK, "Error parsing history component %s" % [component])
-		$"../../../RichTextLabel2".text += "\n" + expression + " = " + str(parser.execute())
+		var expression: String = ExpressionContainer.new().godotify_expression(" ".join(item))
+		var parser_error = parser.parse(expression)
+		assert (parser_error == OK, "Error parsing history component %s" % [component])
+		$"../../../RichTextLabel2".text += "\n%s = %s \nParser output: %s, %s" % [expression,str(parser.execute()),parser_error,parser.get_error_text()]
 		history.append(int(parser.execute()))
 	
 	return history
