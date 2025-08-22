@@ -1,6 +1,7 @@
 extends TextureRect
 
 var tween: Tween
+var hover_count: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$HelpMenu.hide()
@@ -36,6 +37,8 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
+	if tween and tween.is_running():
+		await tween.finished
 	Events.PlaySound.emit("hide_rules",global_position)
 	await fade_help(0,0.25,true)
 	$HelpMenu.hide()
