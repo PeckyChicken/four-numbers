@@ -90,6 +90,7 @@ container_type = 2
 
 [node name="Label" type="RichTextLabel" parent="Equation/Expression"]
 layout_mode = 2
+mouse_filter = 2
 text = "Expression"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -123,6 +124,7 @@ container_type = 3
 
 [node name="Label" type="RichTextLabel" parent="Equation/Answer"]
 layout_mode = 2
+mouse_filter = 2
 text = "Answer"
 horizontal_alignment = 1
 vertical_alignment = 1
