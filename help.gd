@@ -37,8 +37,6 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
-	if tween and tween.is_running():
-		await tween.finished
 	Events.PlaySound.emit("hide_rules",global_position)
 	await fade_help(0,0.25,true)
 	$HelpMenu.hide()

@@ -45,6 +45,7 @@ func play_sound(sound:String,location:Vector2):
 func load_sound(sound:String):
 	if sound.ends_with(".ogg"):
 		sound = sound.replace(".ogg","")
+	
 	if sound not in cache:
 		cache[sound] = load("res://Sounds/%s.ogg" % [sound])
 	
