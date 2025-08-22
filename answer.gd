@@ -15,9 +15,8 @@ func compress_history_component(component) -> Array:
 		
 		var parser := Expression.new()
 		var expression: String = ExpressionContainer.new().godotify_expression(" ".join(item))
-		var parser_error = parser.parse(expression)
-		assert (parser_error == OK, "Error parsing history component %s" % [component])
-		$"../../../RichTextLabel2".text += "\n%s = %s \nParser output: %s, %s" % [expression,str(parser.execute()),parser_error,parser.get_error_text()]
+		var parser_out = parser.parse(expression)
+		assert (parser_out == OK, "Error parsing history component %s" % [component])
 		history.append(int(parser.execute()))
 	
 	return history
@@ -37,7 +36,6 @@ func recreate_expression():
 			child = children
 			break
 	assert (child.history, "Tile was passed into answer with no history. This signifies a serious problem with the \"find_overlap()\" function in tile.gd")
-	$"../../../RichTextLabel".text = str(child.history)
 	var expression_container: ExpressionContainer = child.extra_data["expression"] as ExpressionContainer
 	expression_container.return_numbers()
 	
