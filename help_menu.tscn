@@ -3,8 +3,9 @@
 [ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="1_f4yst"]
 
 [node name="HelpMenu" type="PanelContainer"]
+offset_top = 5.0
 offset_right = 326.0
-offset_bottom = 317.0
+offset_bottom = 402.0
 theme_override_styles/panel = ExtResource("1_f4yst")
 
 [node name="VBox" type="VBoxContainer" parent="."]
