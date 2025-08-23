@@ -20,22 +20,22 @@ func _ready() -> void:
 	
 	super()
 
-func _process(delta: float) -> void:
-	var temp_just_released = just_released
-	super(delta)
-	
-	if temp_just_released and not dragging:
-		if parent_container == null:
-			if get_global_rect().intersects(answer_container.get_global_rect()):
-				if not answer_container.get_children().any(func(x):return x is ErrorTile):
-					return
-				if not self.expression:
-					return
-				root.moves += 1
-				for child in answer_container.get_children():
-					child.queue_free()
-				add_to_container(answer_container)
-				answer_container.recreate_expression()
+#func _process(delta: float) -> void:
+	#var temp_just_released = just_released
+	#super(delta)
+	#
+	#if temp_just_released and not dragging:
+		#if parent_container == null:
+			#if get_global_rect().intersects(answer_container.get_global_rect()):
+				#if not answer_container.get_children().any(func(x):return x is ErrorTile):
+					#return
+				#if not self.expression:
+					#return
+				#root.moves += 1
+				#for child in answer_container.get_children():
+					#child.queue_free()
+				#add_to_container(answer_container)
+				#answer_container.recreate_expression()
 
 
 
@@ -65,8 +65,20 @@ func _on_click(event: InputEvent):
 	super(event)
 
 func _input(event: InputEvent):
-	var temp_dragging = dragging
 	super(event)
-	if just_released == 1 and temp_dragging:
+	
+	if just_released and not dragging:
 		Events.PlaySound.emit("drop_number",global_position)
+		
+		if parent_container == null:
+			if get_global_rect().intersects(answer_container.get_global_rect()):
+				if not answer_container.get_children().any(func(x):return x is ErrorTile):
+					return
+				if not self.expression:
+					return
+				root.moves += 1
+				for child in answer_container.get_children():
+					child.queue_free()
+				add_to_container(answer_container)
+				answer_container.recreate_expression()
 		

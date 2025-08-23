@@ -1,42 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://h4kib28sknqg"]
+[gd_scene load_steps=2 format=3 uid="uid://ch50jrtbxfnxs"]
 
-[ext_resource type="Script" uid="uid://dkqh5nof2equp" path="res://shadow_tile.gd" id="1_0cdx6"]
+[ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://tile.tscn" id="1_0cdx6"]
 
-[node name="Shadow Tile" type="Control"]
+[node name="Shadow Tile" instance=ExtResource("1_0cdx6")]
 modulate = Color(1, 1, 1, 0.5)
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 100.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_0cdx6")
-
-[node name="Outline" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_type_variation = &"outline"
-color = Color(0.333333, 0.333333, 0.333333, 1)
-
-[node name="Fill" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.9, 0.9)
-pivot_offset = Vector2(50, 50)
-mouse_filter = 1
-theme_type_variation = &"fill"
-color = Color(0.117647, 0.117647, 0.117647, 1)

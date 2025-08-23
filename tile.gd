@@ -6,11 +6,11 @@ extends Control
 var extra_data: Dictionary = {}
 
 var movement: float = 0.0
-const CLICK_THRESHOLD = 5.0
+
+const CLICK_THRESHOLD := 5.0 ##Distance the mouse has to move before it registers as a drag.
 
 var dragging: bool = false
 var drag_offset: Vector2
-var mouse_pos: Vector2
 
 var just_released: int = 0
 
@@ -43,13 +43,6 @@ func _ready() -> void:
 		previous_parent = parent_container
 		
 	Events.ResetTiles.connect(return_home)
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		mouse_pos = event.position
-	if event is InputEventMouseButton and not event.is_pressed():
-		just_released = -1 * just_released
-		dragging = false
 
 func return_home():
 	if not draggable:
@@ -115,34 +108,51 @@ func find_overlap():
 			return
 	
 	overlap = root
-		
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if just_released == 1:
+		await get_tree().process_frame
+		just_released = 0
+
+func end_drag():
+	delete_shadow()
+	if just_released == 1:
+		if movement <= CLICK_THRESHOLD:
+			root.moves += 1
+			quick_move()
+			return
+	
+	if overlap in root.containers:
+		if not parent_container == overlap.get_child(0):
+			root.moves += 1
+			add_to_container(overlap.get_child(0))
+			if parent_container is AnswerContainer:
+				parent_container.recreate_expression()
+
+func drag(event:InputEventMouseMotion):
+	var old_position = position
+	position += event.relative
+	movement += (position - old_position).length()
+	position = position.clamp(Vector2.ZERO,get_viewport_rect().size-self.size)
+	
+	find_overlap()
+
+
+func _input(event:InputEvent) -> void:
 	if not draggable:
 		return
-	if dragging:
-		movement += (mouse_pos + drag_offset - position).length()
-		position = mouse_pos + drag_offset
-		position = position.clamp(Vector2.ZERO,get_viewport_rect().size-self.size)
-		find_overlap()
+	await get_tree().process_frame
+	
+	if event is InputEventMouse:
+		if event.button_mask == 0:
+			just_released = -1 * just_released
+			dragging = false
+			end_drag()
 		
-	else:
-		delete_shadow()
-		if just_released == 1:
-			just_released = 0
-			
-			if movement < CLICK_THRESHOLD:
-				root.moves += 1
-				quick_move()
-				return
-		if overlap in root.containers:
-			
-			if not parent_container == overlap.get_child(0):
-				root.moves += 1
-				add_to_container(overlap.get_child(0))
-				if parent_container is AnswerContainer:
-					parent_container.recreate_expression()
+		if event is InputEventMouseMotion:
+			if dragging:
+				drag(event)
+	
 
 func quick_move(container=null):
 	if container == null:
@@ -154,6 +164,7 @@ func quick_move(container=null):
 			if self is NumberTile:
 				container = storage_container
 			elif self is OperationTile:
+				Events.PlaySound.emit("drop_operation",global_position)
 				queue_free()
 				return
 	
@@ -165,6 +176,7 @@ func _on_click(event: InputEventMouseButton) -> void:
 	just_released = -1
 	if parent_container:
 		previous_parent = parent_container
+		find_overlap()
 		parent_container = null
 	
 	if type == Root.Tiles.ANSWER:

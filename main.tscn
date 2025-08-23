@@ -5,7 +5,7 @@
 [ext_resource type="StyleBox" uid="uid://b4ft1tecblwx8" path="res://container.tres" id="2_kek77"]
 [ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://answer.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://7h5qan4frtki" path="res://operation_tile.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dq3nhvmg72xlh" path="res://operation_tile.tscn" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://yryvw1ybqpb5" path="res://storage.gd" id="6_w48qg"]
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
@@ -98,8 +98,6 @@ vertical_alignment = 1
 
 [node name="equals" parent="Equation" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = "="
 type = 3
 
@@ -191,48 +189,36 @@ allowed_tiles = Array[int]([2, 1])
 
 [node name="Plus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = "+"
 draggable = true
 type = 1
 
 [node name="Minus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = "-"
 draggable = true
 type = 1
 
 [node name="Multiply" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = "×"
 draggable = true
 type = 1
 
 [node name="Divide" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = "÷"
 draggable = true
 type = 1
 
 [node name="Open Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = "("
 draggable = true
 type = 1
 
 [node name="Close Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 operation = ")"
 draggable = true
 type = 1
