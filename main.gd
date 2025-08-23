@@ -31,6 +31,7 @@ var timer: float = 0.0
 var moves: int = 0
 
 var mobile: bool = false
+var tile_scale = Vector2.ONE
 
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const MONTHS = ["January", "February", "March", "April", "May", "June",

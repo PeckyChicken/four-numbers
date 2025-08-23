@@ -32,8 +32,11 @@ var previous_parent: NumberContainer
 var shadow: Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if root is Mobile:
-		scale = Vector2(2,2)
+	
+	custom_minimum_size *= root.tile_scale
+	for child in get_children():
+		pivot_offset *= root.tile_scale
+	
 	Events.TileCreated.emit(self)
 	if get_parent() is NumberContainer:
 		parent_container = get_parent()
@@ -170,11 +173,8 @@ func _on_click(event: InputEventMouseButton) -> void:
 		
 	reparent(root)
 	root.move_child(self,root.get_child_count()-1)
-	if root is Mobile:
-		drag_offset = -size/2
-		position = mouse_pos + drag_offset
-	else:
-		drag_offset = position - mouse_pos
+
+	drag_offset = position - event.global_position
 	dragging = event.is_pressed()
 
 func _on_gui_input(event: InputEvent) -> void:
