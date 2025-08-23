@@ -38,6 +38,6 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	Events.PlaySound.emit("hide_rules",global_position)
-	await fade_help(0,0.25,true)
+	await fade_help(0,0.1,true)
 	$HelpMenu.hide()
 	
