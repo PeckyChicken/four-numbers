@@ -26,32 +26,37 @@ func quick_move(container=null):
 	
 func _on_click(event: InputEvent):
 	if event.is_pressed():
-		clicked = true
 		Events.PlaySound.emit("pick_up_operation",global_position)
 	else:
-		if clicked:
-			clicked = false
-			if operation == "=":
-				Events.ResetTiles.emit()
-				Events.PlaySound.emit("drop_operation",global_position)
-			if draggable:
-				if parent_container == null:
-					if get_global_rect().intersects(operation_container.get_global_rect()):
-						queue_free()
+		
+		if operation == "=":
+			Events.PlaySound.emit("drop_operation",global_position)
+			
+			Events.ResetTiles.emit()
+		if draggable:
+			await get_tree().process_frame
+			
+			if parent_container == null:
+				if get_global_rect().intersects(operation_container.get_global_rect()):
+					queue_free()
 	
 	if draggable:
 		super(event)
 
+func end_drag():
+	if not dragging:
+		return
+	super()
+	Events.PlaySound.emit("drop_operation",global_position)
+	
+	if parent_container == null:
+		if get_global_rect().intersects(operation_container.get_global_rect()):
+			queue_free()
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		
 		_on_click(event)
 
 func _input(event: InputEvent):
 	super(event)
-	if just_released == 1 and not dragging:
-		Events.PlaySound.emit("drop_operation",global_position)
-		
-		if draggable:
-			if parent_container == null:
-				if get_global_rect().intersects(operation_container.get_global_rect()):
-					queue_free()

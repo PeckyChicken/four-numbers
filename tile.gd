@@ -129,6 +129,10 @@ func _process(_delta: float) -> void:
 		just_released = 0
 
 func end_drag():
+	if not dragging: return
+	
+	just_released = -1 * just_released
+	dragging = false
 	delete_shadow()
 	if just_released == 1:
 		if movement <= CLICK_THRESHOLD:
@@ -158,9 +162,7 @@ func _input(event:InputEvent) -> void:
 	await get_tree().process_frame
 	
 	if event is InputEventMouse:
-		if event.button_mask == 0:
-			just_released = -1 * just_released
-			dragging = false
+		if event.button_mask == 0 or (event is InputEventMouseButton and not event.is_pressed()):
 			end_drag()
 		
 		if event is InputEventMouseMotion:
@@ -178,7 +180,6 @@ func quick_move(container=null):
 			if self is NumberTile:
 				container = storage_container
 			elif self is OperationTile:
-				Events.PlaySound.emit("drop_operation",global_position)
 				queue_free()
 				return
 	
