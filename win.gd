@@ -10,16 +10,18 @@ var time: float
 var moves: int
 var solution: String
 
+var image_load_string: String = "[img width=25]"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Stats/VBoxContainer/HBoxContainer/Time.text = "[img]hourglass.png[/img] %s" % [format_time(int(time))]
-	$Stats/VBoxContainer/HBoxContainer/Moves.text = "[img]swapping.png[/img] %s " % [str(moves)]
+	$Stats/VBoxContainer/HBoxContainer/Time.text = "%shourglass.png[/img] %s" % [image_load_string,format_time(int(time))]
+	$Stats/VBoxContainer/HBoxContainer/Moves.text = "%sswapping.png[/img] %s " % [image_load_string,str(moves)]
 	$Stats/VBoxContainer/Panel/Solution.text = solution
 	
 	var mode: String = ["easy","hard"][root.difficulty]
 	var switch_mode: String = ["hard","easy"][root.difficulty]
 	
-	$Stats/VBoxContainer/Mode.text = "[img]%s_mode.svg[/img] %s Mode" % [mode,mode.capitalize()]
+	$Stats/VBoxContainer/Mode.text = "%s%s_mode.svg[/img] %s Mode" % [image_load_string,mode,mode.capitalize()]
 	$Stats/VBoxContainer/Switch.text = "Play %s?" % [switch_mode]
 	$Stats/VBoxContainer/Switch.icon = load("res://%s_mode.svg" % switch_mode)
 	

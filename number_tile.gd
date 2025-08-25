@@ -9,7 +9,7 @@ var history: Array[Variant] = []
 func _ready() -> void:
 	$Number.text = str(number)
 	if len(str(number)) > 2:
-		$Number.add_theme_font_size_override("normal_font_size", 50 - 5*(len(str(number))-2))
+		rescale(custom_minimum_size)
 	$Equation.text = expression
 	if expression:
 		$Number.anchor_bottom = 0.9
@@ -33,9 +33,30 @@ func find_overlap():
 		
 		return
 
+func end_drag():
+	if not dragging:
+		return
+	
+	super()
+	Events.PlaySound.emit("drop_number",global_position)
+	
+	if get_global_rect().intersects(answer_container.get_global_rect()):
+		if parent_container == null:
+			if not answer_container.get_children().any(func(x):return x is ErrorTile):
+				return
+			if not self.expression:
+				return
+			root.moves += 1
+			for child in answer_container.get_children():
+				child.queue_free()
+			add_to_container(answer_container)
+			answer_container.recreate_expression()
+	
+
+
 func rescale(new_scale):
 	super(new_scale)
-	$Number.add_theme_font_size_override("normal_font_size",50 * new_scale.x/100)
+	$Number.add_theme_font_size_override("normal_font_size", (50 - 5*(len(str(number))-2)) * new_scale.x/100)
 	$Equation.add_theme_font_size_override("normal_font_size",12 * new_scale.x/100)
 	
 
@@ -48,19 +69,8 @@ func _on_click(event: InputEvent):
 
 func _input(event: InputEvent):
 	super(event)
-	
-	if just_released and not dragging:
-		Events.PlaySound.emit("drop_number",global_position)
-		
-		if parent_container == null:
-			if get_global_rect().intersects(answer_container.get_global_rect()):
-				if not answer_container.get_children().any(func(x):return x is ErrorTile):
-					return
-				if not self.expression:
-					return
-				root.moves += 1
-				for child in answer_container.get_children():
-					child.queue_free()
-				add_to_container(answer_container)
-				answer_container.recreate_expression()
+	#
+	#if just_released and not dragging:
+		#Events.PlaySound.emit("drop_number",global_position)
+
 		

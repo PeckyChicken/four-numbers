@@ -7,7 +7,7 @@ var extra_data: Dictionary = {}
 
 var movement: float = 0.0
 
-const CLICK_THRESHOLD := 5.0 ##Distance the mouse has to move before it registers as a drag.
+var click_threshold: float ##Distance the mouse has to move before it registers as a drag.
 
 var dragging: bool = false
 var drag_offset: Vector2
@@ -32,6 +32,12 @@ var previous_parent: NumberContainer
 var shadow: Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if root is Mobile:
+		click_threshold = 20.0
+	else:
+		click_threshold = 5.0
+	
+	
 	var start_size = custom_minimum_size
 	rescale(start_size * root.tile_scale)
 	
@@ -115,6 +121,8 @@ func find_overlap():
 
 func create_shadow(container:NumberContainer):
 	delete_shadow()
+	if container is OperationContainer:
+		return
 	shadow = shadow_tile.instantiate()
 	shadow.position = position
 	shadow.type = Root.Tiles.SHADOW
@@ -127,9 +135,13 @@ func _process(_delta: float) -> void:
 		just_released = 0
 
 func end_drag():
+	if not dragging: return
+	
+	just_released = -1 * just_released
+	dragging = false
 	delete_shadow()
 	if just_released == 1:
-		if movement <= CLICK_THRESHOLD:
+		if movement <= click_threshold:
 			root.moves += 1
 			quick_move()
 			return
@@ -156,9 +168,7 @@ func _input(event:InputEvent) -> void:
 	await get_tree().process_frame
 	
 	if event is InputEventMouse:
-		if event.button_mask == 0:
-			just_released = -1 * just_released
-			dragging = false
+		if event.button_mask == 0 or (event is InputEventMouseButton and not event.is_pressed()):
 			end_drag()
 		
 		if event is InputEventMouseMotion:
@@ -176,7 +186,6 @@ func quick_move(container=null):
 			if self is NumberTile:
 				container = storage_container
 			elif self is OperationTile:
-				Events.PlaySound.emit("drop_operation",global_position)
 				queue_free()
 				return
 	
