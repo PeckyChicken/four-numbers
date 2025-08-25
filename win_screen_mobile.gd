@@ -5,6 +5,7 @@ extends WinScreen
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	MAIN_SCENE = load("res://mobile.tscn")
+	image_load_string = "[img width=50]"
 	super()
 
 
