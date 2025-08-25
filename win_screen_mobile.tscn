@@ -7,30 +7,27 @@
 script = ExtResource("2_mhgma")
 
 [node name="Stats" parent="." index="1"]
-modulate = Color(1, 1, 1, 1)
 anchor_left = 0.1
 anchor_right = 0.9
 
+[node name="VBoxContainer" parent="Stats" index="0"]
+theme_override_constants/separation = 35
+
 [node name="Congratulations" parent="Stats/VBoxContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 50
-fit_content = true
 
 [node name="Time" parent="Stats/VBoxContainer/HBoxContainer" index="0"]
 custom_minimum_size = Vector2(0, 60)
 theme_override_font_sizes/normal_font_size = 50
-fit_content = true
 
 [node name="Moves" parent="Stats/VBoxContainer/HBoxContainer" index="1"]
 theme_override_font_sizes/normal_font_size = 50
-fit_content = true
 
 [node name="Solution" parent="Stats/VBoxContainer/Panel" index="0"]
 theme_override_font_sizes/normal_font_size = 50
-fit_content = true
 
 [node name="Mode" parent="Stats/VBoxContainer" index="4"]
 theme_override_font_sizes/normal_font_size = 50
-fit_content = true
 
 [node name="Switch" parent="Stats/VBoxContainer" index="5"]
 theme_override_font_sizes/font_size = 50

@@ -50,6 +50,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
 text = "Quad Target solved!"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -67,6 +68,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "[img alt=\"Time\"]hourglass.png[/img] 0:00"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -77,6 +79,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "[img alt=\"Moves\"]swapping.png[/img] 8"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -90,6 +93,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
 text = "(54 + 67) x 12 / 66 = 22"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -100,6 +104,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "[img]easy_mode.svg[/img] Easy Mode"
+fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
