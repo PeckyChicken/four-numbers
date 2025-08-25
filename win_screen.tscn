@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8vv2erkk11hq"]
+[gd_scene load_steps=6 format=3 uid="uid://b8vv2erkk11hq"]
 
 [ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
 [ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="2_wmwda"]
@@ -9,6 +9,8 @@ bg_color = Color(0.121569, 0.133333, 0.160784, 1)
 border_width_top = 5
 border_width_bottom = 5
 border_color = Color(0.164706, 0.176471, 0.207843, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l5t5q"]
 
 [node name="Win Screen" type="Control"]
 process_mode = 3
@@ -91,11 +93,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wmwda")
 [node name="Solution" type="RichTextLabel" parent="Stats/VBoxContainer/Panel"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 1
 theme_override_font_sizes/normal_font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l5t5q")
 text = "(54 + 67) x 12 / 66 = 22"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+selection_enabled = true
 
 [node name="Mode" type="RichTextLabel" parent="Stats/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
