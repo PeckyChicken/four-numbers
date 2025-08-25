@@ -2,7 +2,7 @@ class_name WinScreen
 extends Control
 
 @onready var MAIN_SCENE: PackedScene = load("res://main.tscn")
-@onready var MOBILE_SCENE: PackedScene = load("res://mobile.tscn")
+
 
 @onready var root: Root = $".."
 
@@ -52,10 +52,7 @@ func _process(_delta: float) -> void:
 
 func _on_switch_pressed() -> void:
 	var new_scene: Root
-	if root is Mobile:
-		new_scene = MOBILE_SCENE.instantiate()
-	else:
-		new_scene = MAIN_SCENE.instantiate()
+	new_scene = MAIN_SCENE.instantiate()
 	
 	new_scene.difficulty = !bool(root.difficulty) as int
 	new_scene.date = root.date
