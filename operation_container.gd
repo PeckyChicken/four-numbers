@@ -7,14 +7,13 @@ var operation_array = ["+","-","×","÷","(",")"]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super()
+	reset_stock()
 
 func tile_added(tile:Tile):
 	super(tile)
 	if tile.type == Root.Tiles.SHADOW:
 		return
-	#print("Operation Container Event: Tile %s added. Children: %s" % [tile,get_children()])
-	if tile.type != Root.Tiles.SHADOW:
-		reset_stock()
+	reset_stock()
 
 func reset_stock():
 	while self.length() < len(operation_array):

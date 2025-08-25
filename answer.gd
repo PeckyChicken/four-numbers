@@ -4,6 +4,12 @@ extends NumberContainer
 @onready var number_tile: PackedScene = load("res://number_tile.tscn")
 @onready var operation_tile: PackedScene = load("res://operation_tile.tscn")
 
+func _ready() -> void:
+	super()
+	await get_tree().process_frame
+	$"../Label".add_theme_font_size_override("normal_font_size",16 * root.tile_scale.x)
+
+
 func compress_history_component(component) -> Array:
 	var history: Array = []
 	for item in component:

@@ -32,10 +32,14 @@ var previous_parent: NumberContainer
 var shadow: Tile
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var start_size = custom_minimum_size
+	rescale(start_size * root.tile_scale)
 	
-	custom_minimum_size *= root.tile_scale
+	await get_tree().process_frame
+	rescale(start_size * root.tile_scale)
+
 	for child in get_children():
-		pivot_offset *= root.tile_scale
+		child.pivot_offset = custom_minimum_size/2
 	
 	Events.TileCreated.emit(self)
 	if get_parent() is NumberContainer:
@@ -43,6 +47,11 @@ func _ready() -> void:
 		previous_parent = parent_container
 		
 	Events.ResetTiles.connect(return_home)
+
+func rescale(new_scale):
+	custom_minimum_size = new_scale
+	for child in get_children():
+		child.pivot_offset = new_scale/2
 
 func return_home():
 	if not draggable:
@@ -98,16 +107,19 @@ func find_overlap():
 		
 		if get_global_rect().intersects(other.get_global_rect()):
 			overlap = other
-			delete_shadow()
-			shadow = shadow_tile.instantiate()
-			shadow.position = position
-			shadow.type = Root.Tiles.SHADOW
-			add_sibling(shadow)
-			shadow.add_to_container(overlap.get_child(0),global_position)
+			create_shadow(overlap.get_child(0))
 			
 			return
 	
 	overlap = root
+
+func create_shadow(container:NumberContainer):
+	delete_shadow()
+	shadow = shadow_tile.instantiate()
+	shadow.position = position
+	shadow.type = Root.Tiles.SHADOW
+	add_sibling(shadow)
+	shadow.add_to_container(container,global_position)
 
 func _process(_delta: float) -> void:
 	if just_released == 1:

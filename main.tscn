@@ -92,6 +92,7 @@ container_type = 2
 [node name="Label" type="RichTextLabel" parent="Equation/Expression"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 16
 text = "Expression"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -124,6 +125,7 @@ container_type = 3
 [node name="Label" type="RichTextLabel" parent="Equation/Answer"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 16
 text = "Answer"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -186,42 +188,6 @@ alignment = 1
 script = ExtResource("7_272bh")
 max_size = 6
 allowed_tiles = Array[int]([2, 1])
-
-[node name="Plus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
-layout_mode = 2
-operation = "+"
-draggable = true
-type = 1
-
-[node name="Minus" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
-layout_mode = 2
-operation = "-"
-draggable = true
-type = 1
-
-[node name="Multiply" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
-layout_mode = 2
-operation = "×"
-draggable = true
-type = 1
-
-[node name="Divide" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
-layout_mode = 2
-operation = "÷"
-draggable = true
-type = 1
-
-[node name="Open Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
-layout_mode = 2
-operation = "("
-draggable = true
-type = 1
-
-[node name="Close Paren" parent="Operations/Symbols" instance=ExtResource("5_7mycd")]
-layout_mode = 2
-operation = ")"
-draggable = true
-type = 1
 
 [node name="Target" type="PanelContainer" parent="."]
 process_mode = 1

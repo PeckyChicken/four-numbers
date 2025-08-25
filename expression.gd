@@ -12,7 +12,9 @@ var parser := Expression.new()
 var error_outputs: Dictionary[String,String] = {"Division by 0":"###","Unparsable":"!","Not whole":"###"}
 
 func _ready() -> void:
-	pass
+	super()
+	await get_tree().process_frame
+	$"../Label".add_theme_font_size_override("normal_font_size",16 * root.tile_scale.x)
 
 func delete_previous_answer():
 	answer.queue_free()
