@@ -115,6 +115,8 @@ func find_overlap():
 
 func create_shadow(container:NumberContainer):
 	delete_shadow()
+	if container is OperationContainer:
+		return
 	shadow = shadow_tile.instantiate()
 	shadow.position = position
 	shadow.type = Root.Tiles.SHADOW
