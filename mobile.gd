@@ -6,6 +6,7 @@ extends Root
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mobile = true
+	tile_scale *= 1.4
 	WIN_SCENE = load("res://win_screen_mobile.tscn")
 	super()
 

@@ -10,6 +10,10 @@ func _ready() -> void:
 	super()
 	$Operation.text = operation
 
+func rescale(new_scale):
+	super(new_scale)
+	$Operation.add_theme_font_size_override("normal_font_size",70 * new_scale.x/100)
+
 func find_overlap():
 	super()
 	if overlap == root:
@@ -19,14 +23,6 @@ func quick_move(container=null):
 	super(container)
 	if previous_parent is OperationContainer:
 		operation_container.reset_stock()
-
-#func _process(delta: float) -> void:
-	#super(delta)
-	#
-	#if draggable and not dragging:
-		#if parent_container == null:
-			#if get_global_rect().intersects(operation_container.get_global_rect()):
-				#queue_free()
 	
 func _on_click(event: InputEvent):
 	if event.is_pressed():
@@ -38,7 +34,10 @@ func _on_click(event: InputEvent):
 			if operation == "=":
 				Events.ResetTiles.emit()
 				Events.PlaySound.emit("drop_operation",global_position)
-				
+			if draggable:
+				if parent_container == null:
+					if get_global_rect().intersects(operation_container.get_global_rect()):
+						queue_free()
 	
 	if draggable:
 		super(event)

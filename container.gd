@@ -14,8 +14,13 @@ enum Type {
 
 @export var container_type: Type
 
+@onready var root: Root = get_tree().root.get_child(get_tree().root.get_child_count()-1)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await get_tree().process_frame
+
+	custom_minimum_size *= root.tile_scale
 	if max_size >= 0:
 		assert (length() <= max_size,"Too many children: Length: %s, Max: %s, Children: %s"%[length(),max_size,get_children()])
 
