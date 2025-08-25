@@ -9,7 +9,7 @@ var history: Array[Variant] = []
 func _ready() -> void:
 	$Number.text = str(number)
 	if len(str(number)) > 2:
-		$Number.add_theme_font_size_override("normal_font_size", 50 - 5*(len(str(number))-2))
+		rescale(custom_minimum_size)
 	$Equation.text = expression
 	if expression:
 		$Number.anchor_bottom = 0.9
@@ -35,7 +35,7 @@ func find_overlap():
 
 func rescale(new_scale):
 	super(new_scale)
-	$Number.add_theme_font_size_override("normal_font_size",50 * new_scale.x/100)
+	$Number.add_theme_font_size_override("normal_font_size", (50 - 5*(len(str(number))-2)) * new_scale.x/100)
 	$Equation.add_theme_font_size_override("normal_font_size",12 * new_scale.x/100)
 	
 
